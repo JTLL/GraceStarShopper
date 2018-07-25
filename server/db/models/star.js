@@ -15,7 +15,7 @@ const Star = db.define('stars', {
     defaultValue: 'true'
   },
   price: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.BIGINT,
     allowNull: false
   }
 })
