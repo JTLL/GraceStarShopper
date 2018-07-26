@@ -10,7 +10,7 @@ const Product = props => {
       <div className="content">
         <p className="header">{product.name}</p>
         <div className="description">
-          Magnitude: {product.magnitude} | Price {product.price}
+          Magnitude: {product.magnitude} | Prices{product.price}
         </div>
         <div
           className="ui vertical animated button"
