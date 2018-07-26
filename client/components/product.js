@@ -1,7 +1,8 @@
 import React from 'react'
 
 const Product = props => {
-  const { product } = props
+
+  const { product, handleSubmit } = props
   return (
     <div className="ui card">
       <div className="image">
@@ -10,12 +11,13 @@ const Product = props => {
       <div className="content">
         <p className="header">{product.name}</p>
         <div className="description">
-          Magnitude: {product.magnitude} | Price {product.price}
+          Magnitude: {product.magnitude} | Prices{product.price}
         </div>
         <div
           className="ui vertical animated button"
           tabIndex="0"
           style={{ marginTop: '10px' }}
+          onClick={() => handleSubmit(product.id)}
         >
           <div className="hidden content">Add</div>
           <div className="visible content">

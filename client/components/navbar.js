@@ -36,9 +36,14 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
     </Link>
     <div className="right menu">
       {isLoggedIn ? (
-        <a href="#" className="item" onClick={handleClick}>
-          Logout
-        </a>
+        <div className="item">
+          <Link className="item" to="/cart">
+            <i className="shopping cart icon" /> Cart
+          </Link>
+          <a href="#" className="item" onClick={handleClick}>
+            Logout
+          </a>
+        </div>
       ) : (
           <div className="item">
             <Link className="item" to="/signup">
