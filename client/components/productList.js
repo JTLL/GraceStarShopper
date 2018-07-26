@@ -1,12 +1,14 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import Product from './product'
-import { fetchProducts } from '../store/products'
-import { connect } from 'react-redux'
+import {fetchProducts} from '../store/products'
+import {connect} from 'react-redux'
 
 class productList extends Component {
   componentDidMount() {
     this.props.getProducts()
   }
+
+  retrieveStripe() {}
 
   render() {
     return (
@@ -14,6 +16,7 @@ class productList extends Component {
         {this.props.products.map(product => {
           return <Product key={product.id} product={product} />
         })}
+        {/* <button onClick={}>Stripe Stuff</button> */}
       </div>
     )
   }
