@@ -9,6 +9,8 @@ class productList extends Component {
     this.props.getProducts()
   }
 
+  retrieveStripe() {}
+
   render() {
     return (
       <div className="ui link cards">
@@ -21,6 +23,7 @@ class productList extends Component {
             />
           )
         })}
+        {/* <button onClick={}>Stripe Stuff</button> */}
       </div>
     )
   }
