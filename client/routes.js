@@ -20,12 +20,13 @@ class Routes extends Component {
       <div>
         <Switch>
           {/* Routes placed here are available to all visitors */}
-          <Route path="/login" component={Login} />
-          <Route path="/signup" component={Signup} />
+          <Route exact path="/" component={Products} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/signup" component={Signup} />
           {isLoggedIn && (
             <Switch>
-              <Route path="/home" component={Products} />
-              <Route path="/cart" component={Cart} />
+              <Route path="/home" render={props => <Products {...props} />} />
+              <Route path="/cart" render={props => <Cart {...props} />} />
             </Switch>
           )}
           {/* Displays our Login component as a fallback */}
