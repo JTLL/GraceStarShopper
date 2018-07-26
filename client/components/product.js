@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Product = props => {
-  const {product} = props
+  const { product } = props
   return (
     <div className="ui card">
       <div className="image">
@@ -14,8 +14,8 @@ const Product = props => {
         </div>
         <div
           className="ui vertical animated button"
-          tabindex="0"
-          style={{marginTop: '10px'}}
+          tabIndex="0"
+          style={{ marginTop: '10px' }}
         >
           <div className="hidden content">Add</div>
           <div className="visible content">
