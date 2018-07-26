@@ -10,7 +10,7 @@ class productList extends Component {
 
   render() {
     return (
-      <div class="ui link cards">
+      <div className="ui link cards">
         {this.props.products.map(product => {
           return <Product key={product.id} product={product} />
         })}

@@ -3,6 +3,7 @@ import axios from 'axios'
 
 const REMOVE_STAR_FROM_CART = 'REMOVE_STAR_FROM_CART' 
 const ADD_STAR_TO_CART = 'ADD_STAR_TO_CART'
+const RETURN_CART = 'RETURN_CART'
 
 const defaultCart = []
 
@@ -14,6 +15,10 @@ const removeStarFromCart = star => ({
 const addStarToCart = star => ({
   type: ADD_STAR_TO_CART,
   star
+})
+
+const returnCart = () => ({
+  type: RETURN_CART
 })
 
 export const addToCart = (id) => async dispatch => {
@@ -32,6 +37,10 @@ export const removeFromCart = (id) => async dispatch => {
   } catch (error) {
     console.error(error)
   }
+}
+
+export const fetchCart = () => dispatch => {
+  dispatch(returnCart())
 }
 
 export default function(state = defaultCart, action){
