@@ -1,7 +1,7 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import Product from './product'
-import {fetchProducts} from '../store/products'
-import {connect} from 'react-redux'
+import { fetchProducts } from '../store/products'
+import { connect } from 'react-redux'
 
 class productList extends Component {
   componentDidMount() {
@@ -10,7 +10,7 @@ class productList extends Component {
 
   render() {
     return (
-      <div class="ui link cards">
+      <div className="ui link cards">
         {this.props.products.map(product => {
           return <Product key={product.id} product={product} />
         })}
