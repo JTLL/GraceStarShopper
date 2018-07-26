@@ -14,7 +14,7 @@ const Product = props => {
         </div>
         <div
           className="ui vertical animated button"
-          tabindex="0"
+          tabIndex="0"
           style={{marginTop: '10px'}}
         >
           <div className="hidden content">Add</div>
