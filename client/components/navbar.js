@@ -30,9 +30,9 @@ const Navbar = ({handleClick, isLoggedIn}) => (
   //     <hr />
   //  </div>
 
-  <div className="ui secondary  menu">
+  <div className="ui secondary  menu" style={{backgroundColor: '#C0C0C0'}}>
     <Link className="item" to="/home">
-      Grace Star Shopper
+      <h1 className="ui header">Grace Star Shopper</h1>
     </Link>
     <div className="right menu">
       {isLoggedIn ? (
