@@ -19,6 +19,7 @@ class productList extends Component {
             <Product
               key={product.id}
               product={product}
+              match={this.props.match}
               handleSubmit={this.props.handleSubmit}
             />
           )
