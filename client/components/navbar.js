@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
-import {logout} from '../store'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { logout } from '../store'
 
-const Navbar = ({handleClick, isLoggedIn}) => (
+const Navbar = ({ handleClick, isLoggedIn }) => (
   //   <div className="ui secondary  menu">
   //     <div className="header item">
   //       <Link className="item" to="/home">
@@ -30,8 +30,8 @@ const Navbar = ({handleClick, isLoggedIn}) => (
   //     <hr />
   //  </div>
 
-  <div className="ui secondary  menu" style={{backgroundColor: '#C0C0C0'}}>
-    <Link className="item" to="/home">
+  <div className="ui secondary  menu" style={{ backgroundColor: '#C0C0C0' }}>
+    <Link className="item" to="/">
       <h1 className="ui header">Grace Star Shopper</h1>
     </Link>
     <div className="right menu">
@@ -45,15 +45,15 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           </a>
         </div>
       ) : (
-        <div className="item">
-          <Link className="item" to="/signup">
-            Sign Up
+          <div className="item">
+            <Link className="item" to="/signup">
+              Sign Up
           </Link>
-          <Link className="item ui" to="/login">
-            Login
+            <Link className="item ui" to="/login">
+              Login
           </Link>
-        </div>
-      )}
+          </div>
+        )}
     </div>
   </div>
 )
