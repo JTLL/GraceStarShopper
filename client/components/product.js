@@ -1,7 +1,8 @@
 import React from 'react'
 
 const Product = props => {
-  const {product, handleSubmit} = props
+
+  const { product, handleSubmit } = props
   return (
     <div className="ui card">
       <div className="image">
@@ -15,7 +16,7 @@ const Product = props => {
         <div
           className="ui vertical animated button"
           tabIndex="0"
-          style={{marginTop: '10px'}}
+          style={{ marginTop: '10px' }}
           onClick={() => handleSubmit(product.id)}
         >
           <div className="hidden content">Add</div>
