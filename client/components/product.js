@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Product = props => {
-  const {product, handleSubmit, match} = props
+  const {product, handleSubmit, handleRemove, match} = props
   return (
     <div className="ui card">
       {console.log('product match', match)}
@@ -14,7 +14,7 @@ const Product = props => {
           Magnitude: {product.magnitude} | Prices: ${product.price}
         </div>
         {match.path === '/cart' ? (
-          <button className="ui button">Remove</button>
+          <button className="ui button" onClick={() => handleRemove(product.id)}>Remove</button>
         ) : (
           <div
             className="ui vertical animated button"

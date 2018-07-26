@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import Product from './product'
-import {fetchCart} from '../store/cart'
+import {fetchCart, removeFromCart} from '../store/cart'
 import {connect} from 'react-redux'
 
 class Cart extends Component {
@@ -20,6 +20,7 @@ class Cart extends Component {
                   key={product.id}
                   product={product}
                   match={this.props.match}
+                  handleRemove={this.props.handleRemove}
                 />
               )
             })}
@@ -37,7 +38,10 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  getCart: () => dispatch(fetchCart())
+  getCart: () => dispatch(fetchCart()),
+  handleRemove: async star => {
+    await dispatch(removeFromCart(star))
+  }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart)
