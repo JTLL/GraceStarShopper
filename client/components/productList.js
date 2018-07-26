@@ -19,8 +19,9 @@ class productList extends Component {
             <Product
               key={product.id}
               product={product}
-              match={this.props.match}
+              location={this.props.location}
               handleSubmit={this.props.handleSubmit}
+              userId={this.props.userId}
             />
           )
         })}
@@ -36,8 +37,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getProducts: () => dispatch(fetchProducts()),
-  handleSubmit: async star => {
-    await dispatch(addToCart(star))
+  handleSubmit: async (star, userId) => {
+    await dispatch(addToCart(star, userId))
   }
 })
 

@@ -5,22 +5,23 @@ import {connect} from 'react-redux'
 
 class Cart extends Component {
   componentDidMount() {
-    this.props.getCart()
+    this.props.getCart(this.props.userId)
   }
-
+  
   render() {
     return (
       <React.Fragment>
-        {console.log('cart props', this.props)}
-        {this.props.cart.length > 0 ? (
+{      console.log("cart props:", this.props.cart)
+}        {this.props.cart.length > 0 ? (
           <div className="ui card">
             {this.props.cart.map(product => {
               return (
                 <Product
-                  key={product.id}
-                  product={product}
-                  match={this.props.match}
+                  key={product.data.id}
+                  product={product.data}
+                  location={this.props.location}
                   handleRemove={this.props.handleRemove}
+                  userId={this.props.userId}
                 />
               )
             })}
@@ -38,7 +39,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  getCart: () => dispatch(fetchCart()),
+  getCart: id => dispatch(fetchCart(id)),
   handleRemove: async star => {
     await dispatch(removeFromCart(star))
   }

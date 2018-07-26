@@ -31,9 +31,6 @@ const User = db.define('user', {
   googleId: {
     type: Sequelize.STRING
   },
-  creditCard: {
-    type: Sequelize.INTEGER
-  },
   admin: {
     type: Sequelize.BOOLEAN,
     defaultValue: false
