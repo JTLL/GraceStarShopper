@@ -28,7 +28,6 @@ class Routes extends Component {
       <div>
         <Switch>
           {/* Routes placed here are available to all visitors */}
-
           <Route
             exact
             path="/order-confirmation"
@@ -40,15 +39,10 @@ class Routes extends Component {
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/checkout" component={Checkout} />
-          {isLoggedIn && (
-            <Switch>
-              <Route
-                path="/home"
-                render={props => <Products {...this.props} />}
-              />
-              <Route path="/cart" render={props => <Cart {...this.props} />} />
-            </Switch>
-          )}
+
+          <Route path="/home" render={props => <Products {...this.props} />} />
+          <Route path="/cart" render={props => <Cart {...this.props} />} />
+
           {/* Displays our Login component as a fallback */}
           <Route component={Login} />
         </Switch>
