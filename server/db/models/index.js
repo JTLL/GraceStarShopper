@@ -1,5 +1,6 @@
 const User = require('./user')
 const Star = require('./star')
+const Cart = require('./cart')
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -18,5 +19,6 @@ Star.belongsTo(User)
 User.hasMany(Star)
 module.exports = {
   User,
-  Star
+  Star, 
+  Cart
 }

@@ -1,10 +1,10 @@
 import React from 'react'
 
 const Product = props => {
-  const {product, handleSubmit, match} = props
+  const {product, handleSubmit, handleRemove, location, userId} = props
   return (
     <div className="ui card">
-      {console.log('product match', match)}
+    {console.log("location", location)}
       <div className="image">
         <img src={product.image} />
       </div>
@@ -13,14 +13,14 @@ const Product = props => {
         <div className="description">
           Magnitude: {product.magnitude} | Prices: ${product.price}
         </div>
-        {match.path === '/cart' ? (
-          <button className="ui button">Remove</button>
+        {location.pathname === '/cart' ? (
+          <button className="ui button" onClick={() => handleRemove(product.id)}>Remove</button>
         ) : (
           <div
             className="ui vertical animated button"
             tabIndex="0"
             style={{marginTop: '10px'}}
-            onClick={() => handleSubmit(product.id)}
+            onClick={() => handleSubmit(product.id, userId)}
           >
             <div className="hidden content">Add</div>
             <div className="visible content">
