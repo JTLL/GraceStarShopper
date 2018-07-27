@@ -23,6 +23,7 @@ class Cart extends Component {
                   location={this.props.location}
                   handleRemove={this.props.handleRemove}
                   userId={this.props.userId}
+                  cart={this.props.cart}
                 />
               )
             })}
