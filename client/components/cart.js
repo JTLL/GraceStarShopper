@@ -52,7 +52,14 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getCart: id => dispatch(fetchCart(id)),
   handleRemove: async (star, userId) => {
-    await dispatch(removeFromCart(star, userId))
+    if (userId > 0) {
+      await dispatch(removeFromCart(star, userId))
+    } else {
+      let currentLS = localStorage.getItem('starCart').split(',')
+      let newCart = currentLS.filter(starId => +starId !== star)
+      localStorage.setItem('starCart', newCart)
+      await dispatch(removeFromCart(star, userId))
+    }
   }
 })
 

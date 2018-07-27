@@ -46,7 +46,9 @@ export const addToCart = (starId, userId) => async dispatch => {
 export const removeFromCart = (starId, userId = 0) => async dispatch => {
   try {
     const res = await axios.get(`api/stars/${starId}`)
-    await axios.put(`api/cart/remove/${userId}`, res.data)
+    if (userId > 0) {
+      await axios.put(`api/cart/remove/${userId}`, res.data)
+    }
     dispatch(removeStarFromCart(res.data))
   } catch (error) {
     console.error(error)

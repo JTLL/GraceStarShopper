@@ -19,16 +19,21 @@ class Checkout extends Component {
   }
   
   render() {
-    const total = this.props.cart.reduce((start, item) => {
-      return start + Number(item.price)
-    }, 0)
+    let total = 0
+
+    if (this.props.userId) {
+      total = this.props.cart.reduce((start, item) => {
+        return start + Number(item.price)
+      }, 0)
+    }
+
     return (
       <div>
         <p>
           Total is:
-          {this.props.userId
-            ? '$' + total + ' in billions, of course.'
-            : 'Loading...'}
+          {console.log('cart', this.props.cart)}
+          {console.log('userId', this.props.userId)}
+          {'$' + total + ' in billions, of course.'}
         </p>
         <form
           className="ui form"
