@@ -1,29 +1,35 @@
 import React, {Component} from 'react'
 import Product from './product'
 import {fetchProducts} from '../store/products'
-import {addToCart} from '../store/cart'
+import {addToCart, fetchCart} from '../store/cart'
 import {connect} from 'react-redux'
 
 class productList extends Component {
   componentDidMount() {
     this.props.getProducts()
+    this.props.getCart(this.props.userId)
   }
 
   retrieveStripe() {}
 
   render() {
+    console.log("props from List", this.props)
     return (
       <div className="ui link cards">
         {this.props.products.map(product => {
-          return (
-            <Product
-              key={product.id}
-              product={product}
-              location={this.props.location}
-              handleSubmit={this.props.handleSubmit}
-              userId={this.props.userId}
-            />
-          )
+          console.log("id",product.userId)
+          if(!product.userId){
+            return (
+              <Product
+                key={product.id}
+                product={product}
+                location={this.props.location}
+                handleSubmit={this.props.handleSubmit}
+                userId={this.props.userId}
+                cart={this.props.cart}
+              />
+            )
+          }
         })}
         {/* <button onClick={}>Stripe Stuff</button> */}
       </div>
@@ -32,13 +38,15 @@ class productList extends Component {
 }
 
 const mapStateToProps = state => ({
-  products: state.products
+  products: state.products,
+  cart: state.cart
 })
 
 const mapDispatchToProps = dispatch => ({
   getProducts: () => dispatch(fetchProducts()),
-  handleSubmit: async (star, userId) => {
-    await dispatch(addToCart(star, userId))
+  getCart: id => dispatch(fetchCart(id)),
+  handleSubmit: async (starId, userId) => {
+    await dispatch(addToCart(starId, userId))
   }
 })
 

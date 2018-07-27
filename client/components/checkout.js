@@ -15,7 +15,12 @@ class Checkout extends Component {
           className="ui form"
           onSubmit={event => {
             event.preventDefault()
-            this.props.completeOrder(70, this.props.ccType)
+            this.props.completeOrder(
+              70,
+              this.props.ccType,
+              this.props.ccNumber,
+              this.props.cvc
+            )
           }}
         >
           <select
@@ -55,6 +60,21 @@ class Checkout extends Component {
           <button className="ui button" type="submit">
             Complete Purchase
           </button>
+          {this.props.ccTypeValid ? (
+            <div />
+          ) : (
+            <p>Please select a credit card type.</p>
+          )}
+          {this.props.ccNumberValid ? (
+            <div />
+          ) : (
+            <p>Please input a valid credit card number.</p>
+          )}
+          {this.props.cvcValid ? (
+            <div />
+          ) : (
+            <p>Please enter a valid CVC code.</p>
+          )}
         </form>
       </div>
     )
@@ -62,15 +82,20 @@ class Checkout extends Component {
 }
 
 const mapStateToProps = state => ({
-  ccType: state.purchase.ccType
+  ccType: state.purchase.ccType,
+  ccNumber: state.purchase.ccNumber,
+  cvc: state.purchase.cvc,
+  ccTypeValid: state.purchase.ccTypeValid,
+  ccNumberValid: state.purchase.ccNumberValid,
+  cvcValid: state.purchase.cvcValid
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   ccTypeChange: type => dispatch(ccTypeChange(type)),
   ccNumberChange: number => dispatch(ccNumberChange(number)),
   cvcChange: number => dispatch(cvcChange(number)),
-  completeOrder: (amount, cardType) =>
-    dispatch(completeOrder(amount, cardType, ownProps.history))
+  completeOrder: (amount, cardType, cardNumber, cvc) =>
+    dispatch(completeOrder(amount, cardType, cardNumber, cvc, ownProps.history))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Checkout)
