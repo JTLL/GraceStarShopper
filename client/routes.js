@@ -11,10 +11,6 @@ import {
   Checkout,
   OrderConfirmation
 } from './components'
-<<<<<<< HEAD
-
-=======
->>>>>>> master
 import {me} from './store'
 
 /**
@@ -27,31 +23,16 @@ class Routes extends Component {
 
   render() {
     const {isLoggedIn} = this.props
-<<<<<<< HEAD
-=======
     console.log('routes props', this.props)
->>>>>>> master
     return (
       <div>
         <Switch>
           {/* Routes placed here are available to all visitors */}
-<<<<<<< HEAD
-=======
-
->>>>>>> master
           <Route
             exact
             path="/order-confirmation"
             component={OrderConfirmation}
           />
-<<<<<<< HEAD
-          <Redirect exact from="/" to="/home" />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/signup" component={Signup} />
-          <Route exact path="/checkout" component={Checkout} />
-          <Route path="/home" render={props => <Products {...this.props} />} />
-          <Route path="/cart" render={props => <Cart {...this.props} />} />
-=======
 
           <Redirect exact from="/" to="/home" />
 
@@ -66,7 +47,6 @@ class Routes extends Component {
               />
               <Route path="/cart" render={props => <Cart {...this.props} />} />
             </Switch>
->>>>>>> master
           )}
           {/* Displays our Login component as a fallback */}
           <Route component={Login} />
