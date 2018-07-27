@@ -46,7 +46,7 @@ export const fetchCart = id => async dispatch => {
   let cart = []
   for(let i = 0; i < res.data.stars.length; i++){
     let star = await axios.get(`api/stars/${res.data.stars[i]}`)
-    cart.push(star)
+    cart.push(star.data)
   }
   dispatch(returnCart(cart))
 }
