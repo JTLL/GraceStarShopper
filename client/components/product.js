@@ -4,7 +4,6 @@ const Product = props => {
   const {product, handleSubmit, handleRemove, location, userId} = props
   return (
     <div className="ui card">
-    {console.log("location", location)}
       <div className="image">
         <img src={product.image} />
       </div>
@@ -14,7 +13,7 @@ const Product = props => {
           Magnitude: {product.magnitude} | Prices: ${product.price}
         </div>
         {location.pathname === '/cart' ? (
-          <button className="ui button" onClick={() => handleRemove(product.id)}>Remove</button>
+          <button className="ui button" onClick={() => handleRemove(product.id, userId)}>Remove</button>
         ) : (
           <div
             className="ui vertical animated button"

@@ -37,8 +37,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getProducts: () => dispatch(fetchProducts()),
-  handleSubmit: async (star, userId) => {
-    await dispatch(addToCart(star, userId))
+  handleSubmit: async (starId, userId) => {
+    await dispatch(addToCart(starId, userId))
   }
 })
 

@@ -22,9 +22,15 @@ const returnCart = cart => ({
   cart
 })
 
-export const addToCart = (id, userId) => async dispatch => {
+export const addToCart = (starId, userId) => async dispatch => {
   try {
-    const res = await axios.get(`api/stars/${id}`)
+    const cart = await axios.get(`api/cart/${userId}`)
+    for(let i = 0; i < cart.data.stars.length; i++){
+      if(cart.data.stars[i] === starId){
+        return
+      }
+    }
+    const res = await axios.get(`api/stars/${starId}`)
     await axios.put(`api/cart/${userId}`, res.data)
     dispatch(addStarToCart(res.data))
   } catch (error) {
@@ -32,9 +38,10 @@ export const addToCart = (id, userId) => async dispatch => {
   }
 }
 
-export const removeFromCart = (id) => async dispatch => {
+export const removeFromCart = (starId, userId) => async dispatch => {
   try {
-    const res = await axios.get(`api/stars/${id}`)
+    const res = await axios.get(`api/stars/${starId}`)
+    await axios.put(`api/cart/remove/${userId}`, res.data)
     dispatch(removeStarFromCart(res.data))
   } catch (error) {
     console.error(error)

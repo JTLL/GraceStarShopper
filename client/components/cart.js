@@ -40,8 +40,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getCart: id => dispatch(fetchCart(id)),
-  handleRemove: async star => {
-    await dispatch(removeFromCart(star))
+  handleRemove: async (star, userId) => {
+    await dispatch(removeFromCart(star, userId))
   }
 })
 
