@@ -20,7 +20,9 @@ const Product = props => {
         {location.pathname === '/cart' ? (
           <button
             className="ui button"
-            onClick={() => handleRemove(product.id, userId)}
+            onClick={() => {
+              handleRemove(product.id, userId)
+            }}
           >
             Remove
           </button>

@@ -13,12 +13,11 @@ class productList extends Component {
   retrieveStripe() {}
 
   render() {
-    console.log("props from List", this.props)
     return (
       <div className="ui link cards">
         {this.props.products.map(product => {
-          console.log("id",product.userId)
-          if(!product.userId){
+          console.log('id', product.userId)
+          if (!product.userId) {
             return (
               <Product
                 key={product.id}
