@@ -61,7 +61,6 @@ export const fetchCart = (userId = 0) => async dispatch => {
   } else {
     if (localStorage.getItem('starCart')) {
       let starCart = localStorage.getItem('starCart').split(',')
-      console.log('starCart', starCart)
       for (let i = 1; i < starCart.length; i++) {
         let star = await axios.get(`api/stars/${starCart[i]}`)
         cart.push(star.data)

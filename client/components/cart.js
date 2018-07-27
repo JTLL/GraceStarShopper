@@ -12,8 +12,6 @@ class Cart extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log('prevProps', prevProps)
-    console.log('thisprops', this.props)
     if (prevProps.userId !== this.props.userId)
       this.props.getCart(this.props.userId)
   }
