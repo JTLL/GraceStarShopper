@@ -22,7 +22,7 @@ router.put('/remove/:id', async (req, res, next) => {
         userId: req.params.id
       }
     })
-    console.log("cart", cart.stars)
+    console.log('cart', cart.stars)
     let cartArray = cart.stars.filter(star => star !== req.body.id)
     const newCart = await cart.update({stars: cartArray})
     res.json(newCart)

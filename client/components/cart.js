@@ -6,13 +6,14 @@ import {Link} from 'react-router-dom'
 
 class Cart extends Component {
   componentDidMount() {
-    this.props.getCart(this.props.userId)
+    this.props.userId
+      ? this.props.getCart(this.props.userId)
+      : this.props.getCart(0)
   }
 
   render() {
     return (
       <React.Fragment>
-        {console.log('cart props:', this.props.cart)}
         <Link className="ui button" to="/checkout">
           Go to Checkout
         </Link>
@@ -26,6 +27,7 @@ class Cart extends Component {
                   location={this.props.location}
                   handleRemove={this.props.handleRemove}
                   userId={this.props.userId}
+                  cart={this.props.cart}
                 />
               )
             })}

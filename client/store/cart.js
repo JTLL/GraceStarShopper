@@ -1,7 +1,7 @@
-import axios from 'axios' 
-// import history from '../history' 
+import axios from 'axios'
+// import history from '../history'
 
-const REMOVE_STAR_FROM_CART = 'REMOVE_STAR_FROM_CART' 
+const REMOVE_STAR_FROM_CART = 'REMOVE_STAR_FROM_CART'
 const ADD_STAR_TO_CART = 'ADD_STAR_TO_CART'
 const RETURN_CART = 'RETURN_CART'
 
@@ -25,8 +25,8 @@ const returnCart = cart => ({
 export const addToCart = (starId, userId) => async dispatch => {
   try {
     const cart = await axios.get(`api/cart/${userId}`)
-    for(let i = 0; i < cart.data.stars.length; i++){
-      if(cart.data.stars[i] === starId){
+    for (let i = 0; i < cart.data.stars.length; i++) {
+      if (cart.data.stars[i] === starId) {
         return
       }
     }
@@ -38,7 +38,7 @@ export const addToCart = (starId, userId) => async dispatch => {
   }
 }
 
-export const removeFromCart = (starId, userId) => async dispatch => {
+export const removeFromCart = (starId, userId = 0) => async dispatch => {
   try {
     const res = await axios.get(`api/stars/${starId}`)
     await axios.put(`api/cart/remove/${userId}`, res.data)
@@ -48,21 +48,32 @@ export const removeFromCart = (starId, userId) => async dispatch => {
   }
 }
 
-export const fetchCart = id => async dispatch => {
-  const res = await axios.get(`api/cart/${id}`)
+export const fetchCart = (userId = 0) => async dispatch => {
   let cart = []
-  for(let i = 0; i < res.data.stars.length; i++){
-    let star = await axios.get(`api/stars/${res.data.stars[i]}`)
-    cart.push(star.data)
+  if (userId > 0) {
+    const res = await axios.get(`api/cart/${userId}`)
+    for (let i = 0; i < res.data.stars.length; i++) {
+      let star = await axios.get(`api/stars/${res.data.stars[i]}`)
+      cart.push(star.data)
+    }
+  } else {
+    if (localStorage.getItem('starCart')) {
+      let starCart = localStorage.getItem('starCart').split(',')
+      console.log('starCart', starCart)
+      for (let i = 1; i < starCart.length; i++) {
+        let star = await axios.get(`api/stars/${starCart[i]}`)
+        cart.push(star.data)
+      }
+    }
   }
   dispatch(returnCart(cart))
 }
 
-export default function(state = defaultCart, action){
-  switch(action.type){
+export default function(state = defaultCart, action) {
+  switch (action.type) {
     case ADD_STAR_TO_CART:
       state.forEach(star => {
-        if(star.id === action.star.id){
+        if (star.id === action.star.id) {
           return state
         }
       })

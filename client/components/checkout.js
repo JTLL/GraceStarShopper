@@ -22,7 +22,9 @@ class Checkout extends Component {
       <div>
         <p>
           Total is:
-          {this.props.userId ? total : 'Loading...'}
+          {this.props.userId
+            ? '$' + total + ' in billions, of course.'
+            : 'Loading...'}
         </p>
         <form
           className="ui form"
