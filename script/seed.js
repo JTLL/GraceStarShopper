@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('../server/db')
-const { User, Star } = require('../server/db/models')
+const { User, Star, Cart } = require('../server/db/models')
 
 
 const stars = [{
@@ -59,7 +59,6 @@ const user = [{
   email: 'cody@email.com',
   password: '123',
   salt: 'sithlord',
-  creditCard: 123456789,
   admin: true
 },
 {
@@ -67,8 +66,15 @@ const user = [{
   email: 'murphy@email.com',
   password: '123',
   salt: 'jedi',
-  creditCard: 456789123
 }]
+
+const carts = [{
+  userId: 1
+},
+{
+  userId: 2
+}]
+
 async function seed() {
   await db.sync({ force: true })
   console.log('db synced!')
@@ -76,7 +82,7 @@ async function seed() {
   // executed until that promise resolves!
   const users = await Promise.all(user.map(user => User.create(user)))
   const star = await Promise.all(stars.map(star => Star.create(star)))
-
+  await Promise.all(carts.map(cart => Cart.create(cart)))
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
   // and store the result that the promise resolves to in a variable! This is nice!
   console.log(`seeded ${users.length} users`)
