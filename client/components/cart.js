@@ -11,6 +11,11 @@ class Cart extends Component {
       : this.props.getCart(0)
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.userId !== this.props.userId)
+      this.props.getCart(this.props.userId)
+  }
+
   render() {
     return (
       <React.Fragment>
