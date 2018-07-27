@@ -4,9 +4,14 @@ import {Link} from 'react-router-dom'
 
 class orderConfirmation extends Component {
   render() {
+    console.log(this.props.order)
     return (
       <div>
         <h1>Your order is complete!</h1>
+        <p>
+          Your purchase amount is: ${this.props.order.amount}, which is still in
+          billions.
+        </p>
         <p>Your order ID is: {this.props.order.id}</p>
         <Link to="/">Return Home</Link>
       </div>

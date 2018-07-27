@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import Product from './product'
 import {fetchCart, removeFromCart} from '../store/cart'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 
 class Cart extends Component {
   componentDidMount() {
@@ -13,6 +14,9 @@ class Cart extends Component {
   render() {
     return (
       <React.Fragment>
+        <Link className="ui button" to="/checkout">
+          Go to Checkout
+        </Link>
         {this.props.cart.length > 0 ? (
           <div className="ui card">
             {this.props.cart.map(product => {

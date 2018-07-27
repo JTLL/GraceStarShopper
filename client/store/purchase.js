@@ -57,8 +57,6 @@ export const completeOrder = (
   cvc,
   history
 ) => async dispatch => {
-  console.log('card #', typeof cardNumber)
-  console.log('cvc', typeof cvc)
   try {
     let trigger = true
     if (cardType === '') {
