@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
 import PropTypes from 'prop-types'
-
 import {
   Login,
   Signup,
@@ -12,9 +11,6 @@ import {
   Checkout,
   OrderConfirmation
 } from './components'
-
-
-
 import {me} from './store'
 
 /**
@@ -27,12 +23,11 @@ class Routes extends Component {
 
   render() {
     const {isLoggedIn} = this.props
-    console.log("routes props", this.props)
+    console.log('routes props', this.props)
     return (
       <div>
         <Switch>
           {/* Routes placed here are available to all visitors */}
-
 
           <Route
             exact
@@ -40,15 +35,17 @@ class Routes extends Component {
             component={OrderConfirmation}
           />
 
-
-          <Redirect exact from='/' to='/home' />
+          <Redirect exact from="/" to="/home" />
 
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/checkout" component={Checkout} />
           {isLoggedIn && (
             <Switch>
-              <Route path="/home" render={props => <Products {...this.props} />} />
+              <Route
+                path="/home"
+                render={props => <Products {...this.props} />}
+              />
               <Route path="/cart" render={props => <Cart {...this.props} />} />
             </Switch>
           )}
