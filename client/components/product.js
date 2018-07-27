@@ -2,9 +2,10 @@ import React from 'react'
 
 const Product = props => {
   const {product, handleSubmit, handleRemove, location, userId} = props
+  let guestCart = []
+
   return (
     <div className="ui card">
-    {console.log("location", location)}
       <div className="image">
         <img src={product.image} />
       </div>
@@ -14,13 +15,27 @@ const Product = props => {
           Magnitude: {product.magnitude} | Prices: ${product.price}
         </div>
         {location.pathname === '/cart' ? (
-          <button className="ui button" onClick={() => handleRemove(product.id)}>Remove</button>
+          <button
+            className="ui button"
+            onClick={() => handleRemove(product.id)}
+          >
+            Remove
+          </button>
         ) : (
           <div
             className="ui vertical animated button"
             tabIndex="0"
             style={{marginTop: '10px'}}
-            onClick={() => handleSubmit(product.id, userId)}
+            onClick={() => {
+              {
+                userId
+                  ? handleSubmit(product.id, userId)
+                  : localStorage.setItem('starCart', [
+                      localStorage.getItem('starCart'),
+                      product.id
+                    ])
+              }
+            }}
           >
             <div className="hidden content">Add</div>
             <div className="visible content">

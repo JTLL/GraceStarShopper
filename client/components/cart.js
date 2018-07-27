@@ -5,14 +5,15 @@ import {connect} from 'react-redux'
 
 class Cart extends Component {
   componentDidMount() {
-    this.props.getCart(this.props.userId)
+    this.props.userId
+      ? this.props.getCart(this.props.userId)
+      : this.props.getCart(0)
   }
-  
+
   render() {
     return (
       <React.Fragment>
-{      console.log("cart props:", this.props.cart)
-}        {this.props.cart.length > 0 ? (
+        {this.props.cart.length > 0 ? (
           <div className="ui card">
             {this.props.cart.map(product => {
               return (

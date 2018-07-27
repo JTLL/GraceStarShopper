@@ -16,7 +16,7 @@ router.get('/:id', async (req, res, next) => {
 })
 
 router.put('/:id', async (req, res, next) => {
-  console.log("cart from put")
+  console.log('cart from put')
   try {
     const cart = await Cart.findOne({
       where: {
@@ -26,7 +26,7 @@ router.put('/:id', async (req, res, next) => {
     let cartArray = [...cart.stars, req.body.id]
     const newCart = await cart.update({stars: cartArray})
     // console.log("body",req.body)
-    console.log("cart:",cartArray)
+    console.log('cart:', cartArray)
     res.json(newCart)
   } catch (error) {
     next(error)

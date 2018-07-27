@@ -35,11 +35,11 @@ const Navbar = ({handleClick, isLoggedIn}) => (
       <h1 className="ui header">Grace Star Shopper</h1>
     </Link>
     <div className="right menu">
+      <Link className="item" to="/cart">
+        <i className="shopping cart icon" /> Cart
+      </Link>
       {isLoggedIn ? (
         <div className="item">
-          <Link className="item" to="/cart">
-            <i className="shopping cart icon" /> Cart
-          </Link>
           <a href="#" className="item" onClick={handleClick}>
             Logout
           </a>

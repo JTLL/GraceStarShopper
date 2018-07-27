@@ -1,7 +1,7 @@
-import axios from 'axios' 
-// import history from '../history' 
+import axios from 'axios'
+// import history from '../history'
 
-const REMOVE_STAR_FROM_CART = 'REMOVE_STAR_FROM_CART' 
+const REMOVE_STAR_FROM_CART = 'REMOVE_STAR_FROM_CART'
 const ADD_STAR_TO_CART = 'ADD_STAR_TO_CART'
 const RETURN_CART = 'RETURN_CART'
 
@@ -32,7 +32,7 @@ export const addToCart = (id, userId) => async dispatch => {
   }
 }
 
-export const removeFromCart = (id) => async dispatch => {
+export const removeFromCart = (id = 0) => async dispatch => {
   try {
     const res = await axios.get(`api/stars/${id}`)
     dispatch(removeStarFromCart(res.data))
@@ -41,21 +41,32 @@ export const removeFromCart = (id) => async dispatch => {
   }
 }
 
-export const fetchCart = id => async dispatch => {
-  const res = await axios.get(`api/cart/${id}`)
+export const fetchCart = (id = 0) => async dispatch => {
   let cart = []
-  for(let i = 0; i < res.data.stars.length; i++){
-    let star = await axios.get(`api/stars/${res.data.stars[i]}`)
-    cart.push(star.data)
+  if (id > 0) {
+    const res = await axios.get(`api/cart/${id}`)
+    for (let i = 0; i < res.data.stars.length; i++) {
+      let star = await axios.get(`api/stars/${res.data.stars[i]}`)
+      cart.push(star.data)
+    }
+  } else {
+    if (localStorage.getItem('starCart')) {
+      let starCart = localStorage.getItem('starCart').split(',')
+      console.log('starCart', starCart)
+      for (let i = 1; i < starCart.length; i++) {
+        let star = await axios.get(`api/stars/${starCart[i]}`)
+        cart.push(star.data)
+      }
+    }
   }
   dispatch(returnCart(cart))
 }
 
-export default function(state = defaultCart, action){
-  switch(action.type){
+export default function(state = defaultCart, action) {
+  switch (action.type) {
     case ADD_STAR_TO_CART:
       state.forEach(star => {
-        if(star.id === action.star.id){
+        if (star.id === action.star.id) {
           return state
         }
       })
