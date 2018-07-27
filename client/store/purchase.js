@@ -7,7 +7,8 @@ const initialState = {
   cvc: '',
   ccTypeValid: true,
   ccNumberValid: true,
-  cvcValid: true
+  cvcValid: true,
+  purchase: true
 }
 
 const PURCHASE = 'PURCHASE'
@@ -17,6 +18,7 @@ const CVCCHANGE = 'CVC'
 const CCTYPEVALID = 'CCTYPEVALID'
 const CCNUMBERVALID = 'CCNUMBERVALID'
 const CVCVALID = 'CVCVALID'
+const INVALID_PURCHASE = 'INVALID_PURCHASE'
 
 const purchase = order => ({
   type: PURCHASE,
@@ -50,15 +52,25 @@ const cvcCheck = () => ({
   type: CVCVALID
 })
 
+const invalidPurchase = () => ({
+  type: INVALID_PURCHASE
+})
+
 export const completeOrder = (
   amount,
   cardType,
   cardNumber,
   cvc,
-  history
+  history,
+  userId,
+  stars
 ) => async dispatch => {
   try {
     let trigger = true
+    if(amount <= 0){
+      dispatch(invalidPurchase())
+      trigger = false
+    }
     if (cardType === '') {
       dispatch(cardTypeCheck())
       trigger = false
@@ -76,7 +88,13 @@ export const completeOrder = (
         amount,
         cardType
       })
-      dispatch(purchase(data))
+      const order = await axios.post('/api/order', {
+        amount,
+        stripeId: data.id,
+        userId,
+        stars
+      })
+      dispatch(purchase(order.data))
       history.push('/order-confirmation')
     }
   } catch (err) {
@@ -126,6 +144,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         cvcValid: false
+      }
+    case INVALID_PURCHASE:
+      return {
+        ...state,
+        purchase: false
       }
     default:
       return state

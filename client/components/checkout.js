@@ -6,7 +6,7 @@ import {
   cvcChange,
   completeOrder
 } from '../store/purchase'
-import {fetchCart} from '../store/cart'
+import {fetchCart, clearCart} from '../store/cart'
 
 class Checkout extends Component {
   componentDidUpdate(prevProps) {
@@ -14,6 +14,10 @@ class Checkout extends Component {
       this.props.getCart(this.props.userId)
   }
 
+  simplifyCart = () => {
+    return this.props.cart.map(star => star.id)
+  }
+  
   render() {
     let total = 0
 
@@ -35,13 +39,15 @@ class Checkout extends Component {
           className="ui form"
           onSubmit={event => {
             event.preventDefault()
-            console.log('total', total)
             this.props.completeOrder(
               total,
               this.props.ccType,
               this.props.ccNumber,
-              this.props.cvc
+              this.props.cvc,
+              this.props.userId,
+              this.simplifyCart()
             )
+            this.props.clearCart(this.props.userId)
           }}
         >
           <select
@@ -96,6 +102,11 @@ class Checkout extends Component {
           ) : (
             <p>Please enter a valid CVC code.</p>
           )}
+          {this.props.purchase ? (
+            <div />
+          ) : (
+            <p>You have nothing in your cart.</p>
+          )}
         </form>
       </div>
     )
@@ -110,16 +121,18 @@ const mapStateToProps = state => ({
   ccTypeValid: state.purchase.ccTypeValid,
   ccNumberValid: state.purchase.ccNumberValid,
   cvcValid: state.purchase.cvcValid,
-  cart: state.cart
+  cart: state.cart,
+  purchase: state.purchase.purchase
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  getCart: id => dispatch(fetchCart(id)),
+  getCart: userId => dispatch(fetchCart(userId)),
   ccTypeChange: type => dispatch(ccTypeChange(type)),
   ccNumberChange: number => dispatch(ccNumberChange(number)),
   cvcChange: number => dispatch(cvcChange(number)),
-  completeOrder: (amount, cardType, cardNumber, cvc) =>
-    dispatch(completeOrder(amount, cardType, cardNumber, cvc, ownProps.history))
+  completeOrder: (amount, cardType, cardNumber, cvc, userId, stars) =>
+    dispatch(completeOrder(amount, cardType, cardNumber, cvc, ownProps.history, userId, stars)),
+  clearCart: userId => dispatch(clearCart(userId))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Checkout)
