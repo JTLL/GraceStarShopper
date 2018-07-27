@@ -4,6 +4,7 @@ import axios from 'axios'
 const REMOVE_STAR_FROM_CART = 'REMOVE_STAR_FROM_CART'
 const ADD_STAR_TO_CART = 'ADD_STAR_TO_CART'
 const RETURN_CART = 'RETURN_CART'
+const EMPTY_OUT_CART = 'EMPTY_OUT_CART'
 
 const defaultCart = []
 
@@ -20,6 +21,10 @@ const addStarToCart = star => ({
 const returnCart = cart => ({
   type: RETURN_CART,
   cart
+})
+
+const emptyOutCart = () => ({
+  type: EMPTY_OUT_CART
 })
 
 export const addToCart = (starId, userId) => async dispatch => {
@@ -59,7 +64,6 @@ export const fetchCart = (userId = 0) => async dispatch => {
   } else {
     if (localStorage.getItem('starCart')) {
       let starCart = localStorage.getItem('starCart').split(',')
-      console.log('starCart', starCart)
       for (let i = 1; i < starCart.length; i++) {
         let star = await axios.get(`api/stars/${starCart[i]}`)
         cart.push(star.data)
@@ -67,6 +71,15 @@ export const fetchCart = (userId = 0) => async dispatch => {
     }
   }
   dispatch(returnCart(cart))
+}
+
+export const clearCart = (userId = 0) => async dispatch => {
+  if(userId){
+    const newCart = await axios.put('/api/cart/remove', {userId} )
+  } else {
+    localStorage.clear()
+  }
+  dispatch(emptyOutCart())
 }
 
 export default function(state = defaultCart, action) {
@@ -82,6 +95,8 @@ export default function(state = defaultCart, action) {
       return state.filter(star => star.id !== action.star.id)
     case RETURN_CART:
       return action.cart
+    case EMPTY_OUT_CART:
+      return []
     default:
       return state
   }

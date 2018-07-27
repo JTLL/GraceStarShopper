@@ -4,7 +4,11 @@ module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
-    const allStars = await Star.findAll({})
+    const allStars = await Star.findAll({
+      where: {
+        userId: null
+      }
+    })
     res.json(allStars)
   } catch (err) {
     next(err)
