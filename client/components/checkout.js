@@ -6,17 +6,31 @@ import {
   cvcChange,
   completeOrder
 } from '../store/purchase'
+import {fetchCart} from '../store/cart'
 
 class Checkout extends Component {
+  componentDidUpdate(prevProps) {
+    if (prevProps.userId !== this.props.userId)
+      this.props.getCart(this.props.userId)
+  }
+
   render() {
+    const total = this.props.cart.reduce((start, item) => {
+      return start + Number(item.price)
+    }, 0)
     return (
       <div>
+        <p>
+          Total is:
+          {this.props.userId ? total : 'Loading...'}
+        </p>
         <form
           className="ui form"
           onSubmit={event => {
             event.preventDefault()
+            console.log('total', total)
             this.props.completeOrder(
-              70,
+              total,
               this.props.ccType,
               this.props.ccNumber,
               this.props.cvc
@@ -82,15 +96,18 @@ class Checkout extends Component {
 }
 
 const mapStateToProps = state => ({
+  userId: state.user.id,
   ccType: state.purchase.ccType,
   ccNumber: state.purchase.ccNumber,
   cvc: state.purchase.cvc,
   ccTypeValid: state.purchase.ccTypeValid,
   ccNumberValid: state.purchase.ccNumberValid,
-  cvcValid: state.purchase.cvcValid
+  cvcValid: state.purchase.cvcValid,
+  cart: state.cart
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
+  getCart: id => dispatch(fetchCart(id)),
   ccTypeChange: type => dispatch(ccTypeChange(type)),
   ccNumberChange: number => dispatch(ccNumberChange(number)),
   cvcChange: number => dispatch(cvcChange(number)),

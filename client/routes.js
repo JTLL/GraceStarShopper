@@ -39,7 +39,11 @@ class Routes extends Component {
 
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
-          <Route exact path="/checkout" component={Checkout} />
+          <Route
+            exact
+            path="/checkout"
+            render={() => <Checkout {...this.props} />}
+          />
           {isLoggedIn && (
             <Switch>
               <Route
