@@ -17,8 +17,8 @@ class Cart extends Component {
             {this.props.cart.map(product => {
               return (
                 <Product
-                  key={product.data.id}
-                  product={product.data}
+                  key={product.id}
+                  product={product}
                   location={this.props.location}
                   handleRemove={this.props.handleRemove}
                   userId={this.props.userId}
