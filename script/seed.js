@@ -32,7 +32,8 @@ const stars = [{
   name: 'Arcturus',
   image: 'https://freestarcharts.com/images/Articles/Stars/Arcturus/Arcturus_Espenak.jpg',
   magnitude: -0.05,
-  price: 4000000000000
+  price: 4000000000000,
+  userId: 1
 },
 {
   name: 'Vega',
