@@ -8,7 +8,6 @@ import {
   clearErrors
 } from '../store/purchase'
 import {fetchCart} from '../store/cart'
-import Cart from './cart.js'
 
 class Checkout extends Component {
   componentDidMount() {
