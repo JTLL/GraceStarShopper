@@ -1,4 +1,6 @@
 import axios from 'axios'
+import {clearCart} from './cart'
+import { runInNewContext } from 'vm';
 
 const initialState = {
   order: {},
@@ -19,6 +21,7 @@ const CCTYPEVALID = 'CCTYPEVALID'
 const CCNUMBERVALID = 'CCNUMBERVALID'
 const CVCVALID = 'CVCVALID'
 const INVALID_PURCHASE = 'INVALID_PURCHASE'
+const RESET = 'RESET'
 
 const purchase = order => ({
   type: PURCHASE,
@@ -54,6 +57,10 @@ const cvcCheck = () => ({
 
 const invalidPurchase = () => ({
   type: INVALID_PURCHASE
+})
+
+export const clearErrors = () => ({
+  type: RESET
 })
 
 export const completeOrder = (
@@ -95,11 +102,19 @@ export const completeOrder = (
         stars
       })
       dispatch(purchase(order.data))
+      dispatch(clearCart(userId))
+      setOwners(userId, stars)
       history.push('/order-confirmation')
     }
   } catch (err) {
     console.error(err)
   }
+}
+
+const setOwners = (userId, stars) => {
+  stars.forEach(async star => {
+    await axios.put(`/api/stars/${star}`, {userId: userId})
+  })
 }
 
 export default function(state = initialState, action) {
@@ -150,6 +165,8 @@ export default function(state = initialState, action) {
         ...state,
         purchase: false
       }
+    case RESET:
+      return initialState
     default:
       return state
   }
