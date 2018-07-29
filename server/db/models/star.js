@@ -17,6 +17,10 @@ const Star = db.define('stars', {
   price: {
     type: Sequelize.BIGINT,
     allowNull: false
+  },
+  owned: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
   }
 })
 

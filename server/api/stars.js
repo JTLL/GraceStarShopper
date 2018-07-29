@@ -6,7 +6,7 @@ router.get('/', async (req, res, next) => {
   try {
     const allStars = await Star.findAll({
       where: {
-        userId: null
+        owned: false
       }
     })
     res.json(allStars)
