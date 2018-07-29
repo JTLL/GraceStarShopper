@@ -33,6 +33,7 @@ class Checkout extends Component {
 
     return (
       <div>
+        <h2>Checkout</h2>
         <p>
           Total is:
           {console.log('cart', this.props.cart)}
@@ -54,23 +55,26 @@ class Checkout extends Component {
             this.props.clearCart(this.props.userId)
           }}
         >
-          <select
-            className="ui dropdown"
-            onChange={event => this.props.ccTypeChange(event.target.value)}
-          >
-            <option value="">Credit Card</option>
-            <option value="visa">Visa</option>
-            <option value="visaDebit">Visa Debit</option>
-            <option value="masterCard">Mastercard</option>
-            <option value="mastercardDebit">Mastercard Debit</option>
-            <option value="mastercardPrepaid">Mastercard Prepaid</option>
-            <option value="amex">American Express</option>
-            <option value="discover">Discover</option>
-            <option value="diners">Diners</option>
-            <option value="jcb">JCB</option>
-            <option value="unionpay">Unionpay</option>
-          </select>
-          <div className="field">
+          <div className=" field six wide">
+            <label>Credit Card Type</label>
+            <select
+              className="ui dropdown"
+              onChange={event => this.props.ccTypeChange(event.target.value)}
+            >
+              <option value="">Credit Card</option>
+              <option value="visa">Visa</option>
+              <option value="visaDebit">Visa Debit</option>
+              <option value="masterCard">Mastercard</option>
+              <option value="mastercardDebit">Mastercard Debit</option>
+              <option value="mastercardPrepaid">Mastercard Prepaid</option>
+              <option value="amex">American Express</option>
+              <option value="discover">Discover</option>
+              <option value="diners">Diners</option>
+              <option value="jcb">JCB</option>
+              <option value="unionpay">Unionpay</option>
+            </select>
+          </div>
+          <div className="field six wide">
             <label>Credit Card Number</label>
             <input
               type="text"
@@ -79,7 +83,7 @@ class Checkout extends Component {
               onChange={event => this.props.ccNumberChange(event.target.value)}
             />
           </div>
-          <div className="field">
+          <div className="field six wide">
             <label>CVC</label>
             <input
               type="text"
@@ -94,22 +98,22 @@ class Checkout extends Component {
           {this.props.ccTypeValid ? (
             <div />
           ) : (
-            <p>Please select a credit card type.</p>
+            <p className="red">Please select a credit card type.</p>
           )}
           {this.props.ccNumberValid ? (
             <div />
           ) : (
-            <p>Please input a valid credit card number.</p>
+            <p className="red">Please input a valid credit card number.</p>
           )}
           {this.props.cvcValid ? (
             <div />
           ) : (
-            <p>Please enter a valid CVC code.</p>
+            <p className="red">Please enter a valid CVC code.</p>
           )}
           {this.props.purchase ? (
             <div />
           ) : (
-            <p>You have nothing in your cart.</p>
+            <p className="red">You have nothing in your cart.</p>
           )}
         </form>
       </div>

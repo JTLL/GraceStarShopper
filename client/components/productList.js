@@ -14,20 +14,23 @@ class productList extends Component {
 
   render() {
     return (
-      <div className="ui link cards">
-        {this.props.products.map(product => {
-          return (
-            <Product
-              key={product.id}
-              product={product}
-              location={this.props.location}
-              handleSubmit={this.props.handleSubmit}
-              userId={this.props.userId}
-              cart={this.props.cart}
-            />
-          )
-        })}
-        {/* <button onClick={}>Stripe Stuff</button> */}
+      <div>
+        <h2>Available Stars</h2>
+        <div className="ui link cards">
+          {this.props.products.map(product => {
+            return (
+              <Product
+                key={product.id}
+                product={product}
+                location={this.props.location}
+                handleSubmit={this.props.handleSubmit}
+                userId={this.props.userId}
+                cart={this.props.cart}
+              />
+            )
+          })}
+          {/* <button onClick={}>Stripe Stuff</button> */}
+        </div>
       </div>
     )
   }

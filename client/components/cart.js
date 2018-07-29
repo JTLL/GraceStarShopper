@@ -19,11 +19,14 @@ class Cart extends Component {
   render() {
     return (
       <React.Fragment>
-        <Link className="ui button" to="/checkout">
-          Go to Checkout
-        </Link>
+        <div>
+          <h2 className="six wide">Shopping Cart</h2>
+          <Link className="ui button right floated" to="/checkout">
+            Go to Checkout
+          </Link>
+        </div>
         {this.props.cart.length > 0 ? (
-          <div className="ui card">
+          <div className="ui cards">
             {this.props.cart.map(product => {
               return (
                 <Product

@@ -1,29 +1,31 @@
 import React from 'react'
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
-import { auth } from '../store'
+import {auth} from '../store'
 
 /**
  * COMPONENT
  */
 const AuthForm = props => {
-  const { name, displayName, handleSubmit, error } = props
+  const {name, displayName, handleSubmit, error} = props
 
   return (
     <div>
+      {displayName === 'Sign Up' ? <h2>Sign Up</h2> : <h2>Log In</h2>}
       <form onSubmit={handleSubmit} name={name} className="ui form">
-        {displayName === 'Sign Up' ?
-          <div className="field">
+        {displayName === 'Sign Up' ? (
+          <div className="field six wide">
             <label htmlFor="userName">Name</label>
             <input name="userName" type="text" />
-          </div> :
-          <div></div>
-        }
-        <div className="field">
+          </div>
+        ) : (
+          <div />
+        )}
+        <div className="field six wide">
           <label htmlFor="email">Email</label>
           <input name="email" type="text" />
         </div>
-        <div className="field">
+        <div className="field six wide">
           <label htmlFor="password">Password</label>
           <input name="password" type="password" />
         </div>

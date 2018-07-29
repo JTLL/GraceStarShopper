@@ -24,7 +24,7 @@ class Routes extends Component {
   render() {
     const {isLoggedIn} = this.props
     return (
-      <div>
+      <div className="ui container">
         <Switch>
           {/* Routes placed here are available to all visitors */}
           <Route
