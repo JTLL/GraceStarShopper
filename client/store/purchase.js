@@ -113,7 +113,7 @@ export const completeOrder = (
 
 const setOwners = (userId, stars) => {
   stars.forEach(async star => {
-    await axios.put(`/api/stars/${star}`, {userId: userId})
+    await axios.put(`/api/stars/${star}`, {userId: userId, owned: true})
   })
 }
 

@@ -6,7 +6,7 @@ router.get('/', async (req, res, next) => {
   try {
     const allStars = await Star.findAll({
       where: {
-        userId: null
+        owned: false
       }
     })
     res.json(allStars)
@@ -27,9 +27,6 @@ router.get('/:id', async (req, res, next) => {
 router.put('/:id', async (req, res, next) => {
   try {
     const star = await Star.findById(req.params.id)
-    // const star = res
-    // console.log("star",star)
-    // console.log("req.body:",req.body)
     const ownedStar = await star.update(req.body)
     res.json(ownedStar)
   } catch (error) {
