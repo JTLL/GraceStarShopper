@@ -20,6 +20,7 @@ const CCTYPEVALID = 'CCTYPEVALID'
 const CCNUMBERVALID = 'CCNUMBERVALID'
 const CVCVALID = 'CVCVALID'
 const INVALID_PURCHASE = 'INVALID_PURCHASE'
+const RESET = 'RESET'
 
 const purchase = order => ({
   type: PURCHASE,
@@ -55,6 +56,10 @@ const cvcCheck = () => ({
 
 const invalidPurchase = () => ({
   type: INVALID_PURCHASE
+})
+
+export const clearErrors = () => ({
+  type: RESET
 })
 
 export const completeOrder = (
@@ -152,6 +157,8 @@ export default function(state = initialState, action) {
         ...state,
         purchase: false
       }
+    case RESET:
+      return initialState
     default:
       return state
   }

@@ -4,12 +4,14 @@ import {
   ccTypeChange,
   ccNumberChange,
   cvcChange,
-  completeOrder
+  completeOrder,
+  clearErrors
 } from '../store/purchase'
 import {fetchCart} from '../store/cart'
 
 class Checkout extends Component {
   componentDidMount() {
+    this.props.clearErrorState()
     this.props.userId
       ? this.props.getCart(this.props.userId)
       : this.props.getCart(0)
@@ -144,7 +146,8 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
         userId,
         stars
       )
-    )
+    ),
+  clearErrorState: () => dispatch(clearErrors())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Checkout)
