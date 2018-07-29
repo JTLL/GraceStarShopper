@@ -97,8 +97,9 @@ export const completeOrder = (
       trigger = false
     }
     if (trigger) {
-      if(!validateCart){
+      if(!(await validateCart(stars))){
         dispatch(validCartCheck())
+        return
       }
       const {data} = await axios.post('/api/stripe/charge', {
         amount,

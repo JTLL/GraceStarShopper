@@ -118,6 +118,11 @@ class Checkout extends Component {
               ) : (
                 <p className="red">You have nothing in your cart.</p>
               )}
+              {this.props.valid ? (
+               <div />
+              ) : (
+                <p className="red">One or more items in your cart are no longer available. Please return.</p>
+              )}
             </form>
           </div>
 
@@ -139,39 +144,7 @@ class Checkout extends Component {
               })}
             </div>
           </div>
-<<<<<<< HEAD
-          <button className="ui button" type="submit">
-            Complete Purchase
-          </button>
-          {this.props.ccTypeValid ? (
-            <div />
-          ) : (
-            <p className="red">Please select a credit card type.</p>
-          )}
-          {this.props.ccNumberValid ? (
-            <div />
-          ) : (
-            <p className="red">Please input a valid credit card number.</p>
-          )}
-          {this.props.cvcValid ? (
-            <div />
-          ) : (
-            <p className="red">Please enter a valid CVC code.</p>
-          )}
-          {this.props.purchase ? (
-            <div />
-          ) : (
-            <p className="red">You have nothing in your cart.</p>
-          )}
-          {this.props.validCart ? (
-            <div />
-          ) : (
-            <p className="red">One or more items in your cart are no longer available. Please return.</p>
-          )}
-        </form>
-=======
         </div>
->>>>>>> master
       </div>
     )
   }
@@ -186,7 +159,8 @@ const mapStateToProps = state => ({
   ccNumberValid: state.purchase.ccNumberValid,
   cvcValid: state.purchase.cvcValid,
   cart: state.cart,
-  purchase: state.purchase.purchase
+  purchase: state.purchase.purchase,
+  valid: state.purchase.validCartContents
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
