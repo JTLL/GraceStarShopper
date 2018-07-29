@@ -12,7 +12,7 @@ const Product = props => {
       </div>
       <div className="content">
         <p className="header">{product.name}</p>
-        <div className="description">
+        <div className="description margin-bottom">
           Magnitude: {product.magnitude} | Prices: ${product.price}
         </div>
         {location.pathname === '/cart' ? (
@@ -30,7 +30,6 @@ const Product = props => {
           <div
             className="ui vertical animated button"
             tabIndex="0"
-            style={{marginTop: '10px'}}
             onClick={() => {
               userId
                 ? handleSubmit(product.id, userId)

@@ -9,8 +9,8 @@ class orderConfirmation extends Component {
       <div>
         <h2>Your order is complete!</h2>
         <p>
-          Your purchase amount is: ${this.props.order.amount}, which is still in
-          billions.
+          Your purchase amount is: ${this.props.order.amount.toLocaleString()}
+          which is still in billions.
         </p>
         <p>Your order ID is: {this.props.order.id}</p>
         <Link to="/" className="ui button">

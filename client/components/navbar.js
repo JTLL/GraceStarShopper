@@ -10,9 +10,13 @@ const Navbar = ({handleClick, isLoggedIn, userName}) => (
       <h1 className="ui header">Grace Star Shopper</h1>
     </Link>
     <div className="right menu">
-      <div className="item">
-        <p>Logged in as: {userName}</p>
-      </div>
+      {isLoggedIn ? (
+        <div className="item">
+          <p>Logged in as: {userName}</p>
+        </div>
+      ) : (
+        <div />
+      )}
       <Link className="item" to="/cart">
         <i className="shopping cart icon" /> Cart
       </Link>
