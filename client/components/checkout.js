@@ -112,6 +112,11 @@ class Checkout extends Component {
           ) : (
             <p className="red">You have nothing in your cart.</p>
           )}
+          {this.props.validCart ? (
+            <div />
+          ) : (
+            <p className="red">One or more items in your cart are no longer available. Please return.</p>
+          )}
         </form>
       </div>
     )

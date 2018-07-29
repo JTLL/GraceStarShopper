@@ -10,7 +10,8 @@ const initialState = {
   ccTypeValid: true,
   ccNumberValid: true,
   cvcValid: true,
-  purchase: true
+  purchase: true,
+  validCartContents: true
 }
 
 const PURCHASE = 'PURCHASE'
@@ -22,6 +23,7 @@ const CCNUMBERVALID = 'CCNUMBERVALID'
 const CVCVALID = 'CVCVALID'
 const INVALID_PURCHASE = 'INVALID_PURCHASE'
 const RESET = 'RESET'
+const INVALID_CART = 'INVALID_CART'
 
 const purchase = order => ({
   type: PURCHASE,
@@ -59,6 +61,10 @@ const invalidPurchase = () => ({
   type: INVALID_PURCHASE
 })
 
+const validCartCheck = () => ({
+  type: INVALID_CART
+})
+
 export const clearErrors = () => ({
   type: RESET
 })
@@ -91,6 +97,9 @@ export const completeOrder = (
       trigger = false
     }
     if (trigger) {
+      if(!validateCart){
+        dispatch(validCartCheck())
+      }
       const {data} = await axios.post('/api/stripe/charge', {
         amount,
         cardType
@@ -115,6 +124,16 @@ const setOwners = (userId, stars) => {
   stars.forEach(async star => {
     await axios.put(`/api/stars/${star}`, {userId: userId, owned: true})
   })
+}
+
+const validateCart = stars => {
+  stars.forEach(async star => {
+    const res = await axios.get(`/api/stars/${star}`)
+    if(res.owned){
+      return false
+    }
+  })
+  return true
 }
 
 export default function(state = initialState, action) {
@@ -167,6 +186,11 @@ export default function(state = initialState, action) {
       }
     case RESET:
       return initialState
+    case INVALID_CART:
+      return {
+        ...state,
+        validCartContents: false
+      }
     default:
       return state
   }
