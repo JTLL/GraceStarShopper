@@ -7,13 +7,15 @@ class orderConfirmation extends Component {
     console.log(this.props.order)
     return (
       <div>
-        <h1>Your order is complete!</h1>
+        <h2>Your order is complete!</h2>
         <p>
           Your purchase amount is: ${this.props.order.amount}, which is still in
           billions.
         </p>
         <p>Your order ID is: {this.props.order.id}</p>
-        <Link to="/">Return Home</Link>
+        <Link to="/" className="ui button">
+          Return Home
+        </Link>
       </div>
     )
   }
