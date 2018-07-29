@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {clearCart} from './cart'
 
 const initialState = {
   order: {},
@@ -95,6 +96,7 @@ export const completeOrder = (
         stars
       })
       dispatch(purchase(order.data))
+      dispatch(clearCart(userId))
       history.push('/order-confirmation')
     }
   } catch (err) {

@@ -6,7 +6,7 @@ import {
   cvcChange,
   completeOrder
 } from '../store/purchase'
-import {fetchCart, clearCart} from '../store/cart'
+import {fetchCart} from '../store/cart'
 
 class Checkout extends Component {
   componentDidMount() {
@@ -51,7 +51,6 @@ class Checkout extends Component {
               this.props.userId,
               this.simplifyCart()
             )
-            this.props.clearCart(this.props.userId)
           }}
         >
           <select
@@ -145,8 +144,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
         userId,
         stars
       )
-    ),
-  clearCart: userId => dispatch(clearCart(userId))
+    )
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Checkout)
