@@ -4,37 +4,15 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
-const Navbar = ({handleClick, isLoggedIn}) => (
-  //   <div className="ui secondary  menu">
-  //     <div className="header item">
-  //       <Link className="item" to="/home">
-  //         Grace Star Shopper
-  //       </Link>
-  //     </div>
-  //     <div className="right menu">
-  //       {isLoggedIn ? (
-  //         <a href="#" className="item" onClick={handleClick}>
-  //           Login
-  //         </a>
-  //       ) : (
-  //         <div>
-  //           <Link className="item" to="/signup">
-  //             Sign Up
-  //           </Link>
-  //           <Link className="item ui" to="/login">
-  //             Login
-  //           </Link>
-  //         </div>
-  //       )}
-  //     </div>
-  //     <hr />
-  //  </div>
-
+const Navbar = ({handleClick, isLoggedIn, userName}) => (
   <div className="ui secondary  menu" style={{backgroundColor: '#C0C0C0'}}>
     <Link className="item" to="/">
       <h1 className="ui header">Grace Star Shopper</h1>
     </Link>
     <div className="right menu">
+      <div className="item">
+        <p>Logged in as: {userName}</p>
+      </div>
       <Link className="item" to="/cart">
         <i className="shopping cart icon" /> Cart
       </Link>
@@ -61,11 +39,10 @@ const Navbar = ({handleClick, isLoggedIn}) => (
 /**
  * CONTAINER
  */
-const mapState = state => {
-  return {
-    isLoggedIn: !!state.user.id
-  }
-}
+const mapState = state => ({
+  isLoggedIn: !!state.user.id,
+  userName: state.user.name
+})
 
 const mapDispatch = dispatch => {
   return {
