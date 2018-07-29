@@ -4,12 +4,14 @@ import {
   ccTypeChange,
   ccNumberChange,
   cvcChange,
-  completeOrder
+  completeOrder,
+  clearErrors
 } from '../store/purchase'
-import {fetchCart, clearCart} from '../store/cart'
+import {fetchCart} from '../store/cart'
 
 class Checkout extends Component {
   componentDidMount() {
+    this.props.clearErrorState()
     this.props.userId
       ? this.props.getCart(this.props.userId)
       : this.props.getCart(0)
@@ -51,7 +53,6 @@ class Checkout extends Component {
               this.props.userId,
               this.simplifyCart()
             )
-            this.props.clearCart(this.props.userId)
           }}
         >
           <select
@@ -146,7 +147,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
         stars
       )
     ),
-  clearCart: userId => dispatch(clearCart(userId))
+  clearErrorState: () => dispatch(clearErrors())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Checkout)
