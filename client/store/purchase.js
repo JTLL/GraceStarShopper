@@ -1,5 +1,6 @@
 import axios from 'axios'
 import {clearCart} from './cart'
+import { runInNewContext } from 'vm';
 
 const initialState = {
   order: {},
@@ -102,11 +103,18 @@ export const completeOrder = (
       })
       dispatch(purchase(order.data))
       dispatch(clearCart(userId))
+      setOwners(userId, stars)
       history.push('/order-confirmation')
     }
   } catch (err) {
     console.error(err)
   }
+}
+
+const setOwners = (userId, stars) => {
+  stars.forEach(async star => {
+    await axios.put(`/api/stars/${star}`, {userId: userId})
+  })
 }
 
 export default function(state = initialState, action) {
