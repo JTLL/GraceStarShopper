@@ -76,8 +76,8 @@ export const fetchCart = (userId = 0) => async dispatch => {
 }
 
 export const clearCart = (userId = 0) => async dispatch => {
-  if(userId){
-    const newCart = await axios.put('/api/cart/remove', {userId} )
+  if (userId) {
+    const newCart = await axios.put('/api/cart/remove', {userId})
   } else {
     localStorage.clear()
   }

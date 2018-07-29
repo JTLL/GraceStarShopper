@@ -9,6 +9,12 @@ import {
 import {fetchCart, clearCart} from '../store/cart'
 
 class Checkout extends Component {
+  componentDidMount() {
+    this.props.userId
+      ? this.props.getCart(this.props.userId)
+      : this.props.getCart(0)
+  }
+
   componentDidUpdate(prevProps) {
     if (prevProps.userId !== this.props.userId)
       this.props.getCart(this.props.userId)
@@ -17,15 +23,13 @@ class Checkout extends Component {
   simplifyCart = () => {
     return this.props.cart.map(star => star.id)
   }
-  
-  render() {
-    let total = 0
 
-    if (this.props.userId) {
-      total = this.props.cart.reduce((start, item) => {
-        return start + Number(item.price)
-      }, 0)
-    }
+  render() {
+    const total = this.props.cart.reduce((start, item) => {
+      return start + Number(item.price)
+    }, 0)
+
+    console.log('thispropscart', this.props.cart)
 
     return (
       <div>
@@ -131,7 +135,17 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   ccNumberChange: number => dispatch(ccNumberChange(number)),
   cvcChange: number => dispatch(cvcChange(number)),
   completeOrder: (amount, cardType, cardNumber, cvc, userId, stars) =>
-    dispatch(completeOrder(amount, cardType, cardNumber, cvc, ownProps.history, userId, stars)),
+    dispatch(
+      completeOrder(
+        amount,
+        cardType,
+        cardNumber,
+        cvc,
+        ownProps.history,
+        userId,
+        stars
+      )
+    ),
   clearCart: userId => dispatch(clearCart(userId))
 })
 

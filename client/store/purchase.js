@@ -67,7 +67,7 @@ export const completeOrder = (
 ) => async dispatch => {
   try {
     let trigger = true
-    if(amount <= 0){
+    if (amount <= 0) {
       dispatch(invalidPurchase())
       trigger = false
     }
