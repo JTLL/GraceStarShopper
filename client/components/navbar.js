@@ -12,7 +12,10 @@ const Navbar = ({handleClick, isLoggedIn, userName}) => (
     <div className="right menu">
       {isLoggedIn ? (
         <div className="item">
-          <p>Logged in as: {userName}</p>
+          <p className="item">Logged in as: {userName}</p>
+          <Link className="item" to="/orders">
+            Orders
+          </Link>
         </div>
       ) : (
         <div />
