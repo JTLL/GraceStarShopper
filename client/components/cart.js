@@ -22,7 +22,7 @@ class Cart extends Component {
     return (
       <div className="ui grid">
         <div className="sixteen column row">
-          <div className=" eight wide left floated column">
+          <div className="eight wide left floated column">
             <h2>Shopping Cart</h2>
           </div>
           <div className="eight wide right floated column">

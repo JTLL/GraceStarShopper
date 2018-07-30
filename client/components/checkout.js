@@ -119,30 +119,36 @@ class Checkout extends Component {
                 <p className="red">You have nothing in your cart.</p>
               )}
               {this.props.valid ? (
-               <div />
+                <div />
               ) : (
-                <p className="red">One or more items in your cart are no longer available. Please return.</p>
+                <p className="red">
+                  One or more items in your cart are no longer available. Please
+                  return.
+                </p>
               )}
             </form>
           </div>
-
-          <div className=" four wide right floated column">
+          <div className="four wide right floated column">
             <h2>Your Cart:</h2>
-            <div className="ui divided items">
-              {this.props.cart.map(star => {
-                return (
-                  <div className="item" key={star.id}>
-                    <div className="ui tiny image">
-                      <img src={star.image} />
+            {this.props.cart.length ? (
+              <div className="ui divided items">
+                {this.props.cart.map(star => {
+                  return (
+                    <div className="item" key={star.id}>
+                      <div className="ui tiny image">
+                        <img src={star.image} />
+                      </div>
+                      <div className="middle aligned content">
+                        {star.name}: ${Number(star.price).toLocaleString()}{' '}
+                        billion
+                      </div>
                     </div>
-                    <div className="middle aligned content">
-                      {star.name}: ${Number(star.price).toLocaleString()}{' '}
-                      billion
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
+                  )
+                })}
+              </div>
+            ) : (
+              <p className="red">Your cart is currently empty.</p>
+            )}
           </div>
         </div>
       </div>
