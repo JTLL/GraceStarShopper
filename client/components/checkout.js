@@ -118,6 +118,11 @@ class Checkout extends Component {
               ) : (
                 <p className="red">You have nothing in your cart.</p>
               )}
+              {this.props.valid ? (
+               <div />
+              ) : (
+                <p className="red">One or more items in your cart are no longer available. Please return.</p>
+              )}
             </form>
           </div>
 
@@ -154,7 +159,8 @@ const mapStateToProps = state => ({
   ccNumberValid: state.purchase.ccNumberValid,
   cvcValid: state.purchase.cvcValid,
   cart: state.cart,
-  purchase: state.purchase.purchase
+  purchase: state.purchase.purchase,
+  valid: state.purchase.validCartContents
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
