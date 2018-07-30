@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Product = props => {
-  const {product, handleSubmit, handleGuestSubmit, handleRemove, location, userId, cart} = props
+  const {product, handleSubmit, handleRemove, location, userId, cart} = props
   const cartReducer = (accumulator, currentValue) => {
     return currentValue.id === product.id || accumulator
   }
