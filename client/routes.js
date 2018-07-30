@@ -31,7 +31,7 @@ class Routes extends Component {
           <Route
             exact
             path="/order-confirmation"
-            component={OrderConfirmation}
+            render={props => <OrderConfirmation {...this.props} />}
           />
           <Redirect exact from="/" to="/home" />
           <Route exact path="/login" component={Login} />
