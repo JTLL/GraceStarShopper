@@ -40,10 +40,9 @@ const invalidateItems = invalidItems => ({
 export const addToCart = (starId, userId) => async dispatch => {
   try {
     const res = await axios.get(`api/stars/${starId}`)
-    if(userId){
-      await axios.put(`api/cart/${userId}`, res.data)
-    }
-    else {
+    if (userId) {
+      await axios.put(`api/cart/update`, res.data)
+    } else {
       localStorage.setItem('starCart', [
         localStorage.getItem('starCart'),
         res.data.id
@@ -59,7 +58,7 @@ export const removeFromCart = (starId, userId = 0) => async dispatch => {
   try {
     const res = await axios.get(`api/stars/${starId}`)
     if (userId > 0) {
-      await axios.put(`api/cart/remove/${userId}`, res.data)
+      await axios.put(`api/cart/removeOne`, res.data)
     }
     dispatch(removeStarFromCart(res.data))
   } catch (error) {
@@ -72,10 +71,10 @@ export const fetchCart = (userId = 0) => async dispatch => {
   let invalidItems = []
   try {
     if (userId > 0) {
-      const res = await axios.get(`api/cart/${userId}`)
+      const res = await axios.get(`api/cart`)
       for (let i = 0; i < res.data.stars.length; i++) {
         let star = await axios.get(`api/stars/${res.data.stars[i]}`)
-        if(!star.data.owned){
+        if (!star.data.owned) {
           cart.push(star.data)
         }
         else {
@@ -87,7 +86,7 @@ export const fetchCart = (userId = 0) => async dispatch => {
         let starCart = localStorage.getItem('starCart').split(',')
         for (let i = 1; i < starCart.length; i++) {
           let star = await axios.get(`api/stars/${starCart[i]}`)
-          if(!star.data.owned){
+          if (!star.data.owned) {
             cart.push(star.data)
           }
           else {
@@ -116,7 +115,43 @@ export const clearCart = (userId = 0) => async dispatch => {
   }
 }
 
+<<<<<<< HEAD
 export default function(state = initialState, action) {
+=======
+const validateCart = (userId = 0, itemArray) => async dispatch => {
+  console.log('where am I?')
+  let userCart
+  try {
+    if (userId) {
+      let res = await axios.get(`/api/cart`)
+      userCart = res.data.stars
+    } else {
+      userCart = localStorage.getItem('starCart').split(',')
+    }
+    console.log('usercart', userCart)
+    userCart.forEach(async starId => {
+      let res = await axios.get(`/api/stars/${starId}`)
+      let star = res.data
+      console.log('star', star)
+      if (star.owned) {
+        itemArray.push(star.name)
+      }
+    })
+    dispatch(cleanCart(itemArray))
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export const invalidCartItems = async (userId = 0) => {
+  let invalidItems = []
+  const test = await validateCart(userId, invalidItems)
+  console.log('invalidItems', invalidItems)
+  return invalidItems
+}
+
+export default function(state = defaultCart, action) {
+>>>>>>> master
   switch (action.type) {
     case ADD_STAR_TO_CART:
       state.cart.forEach(star => {

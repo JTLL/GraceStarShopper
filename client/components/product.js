@@ -13,7 +13,9 @@ const Product = props => {
       <div className="content">
         <p className="header">{product.name}</p>
         <div className="description margin-bottom">
-          Magnitude: {product.magnitude} | Prices: ${product.price}
+          Magnitude: {product.magnitude} | Price: ${Number(
+            product.price
+          ).toLocaleString()}
         </div>
         {location.pathname === '/cart' ? (
           <button

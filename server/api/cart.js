@@ -2,11 +2,11 @@ const router = require('express').Router()
 const {Cart} = require('../db/models')
 module.exports = router
 
-router.get('/:id', async (req, res, next) => {
+router.get('/', async (req, res, next) => {
   try {
     const cart = await Cart.findOne({
       where: {
-        userId: req.params.id
+        userId: req.user.id
       }
     })
     res.json(cart)
@@ -19,7 +19,7 @@ router.put('/remove', async (req, res, next) => {
   try {
     const cart = await Cart.findOne({
       where: {
-        userId: req.body.userId
+        userId: req.user.id
       }
     })
     const newCart = await cart.update({stars: []})
@@ -29,11 +29,11 @@ router.put('/remove', async (req, res, next) => {
   }
 })
 
-router.put('/remove/:id', async (req, res, next) => {
+router.put('/removeOne', async (req, res, next) => {
   try {
     const cart = await Cart.findOne({
       where: {
-        userId: req.params.id
+        userId: req.user.id
       }
     })
     let cartArray = cart.stars.filter(star => star !== req.body.id)
@@ -44,11 +44,11 @@ router.put('/remove/:id', async (req, res, next) => {
   }
 })
 
-router.put('/:id', async (req, res, next) => {
+router.put('/update', async (req, res, next) => {
   try {
     const cart = await Cart.findOne({
       where: {
-        userId: req.params.id
+        userId: req.user.id
       }
     })
     let cartArray = [...cart.stars, req.body.id]

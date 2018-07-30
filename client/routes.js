@@ -9,7 +9,8 @@ import {
   Products,
   Cart,
   Checkout,
-  OrderConfirmation
+  OrderConfirmation,
+  Orders
 } from './components'
 import {me} from './store'
 
@@ -30,7 +31,7 @@ class Routes extends Component {
           <Route
             exact
             path="/order-confirmation"
-            component={OrderConfirmation}
+            render={props => <OrderConfirmation {...this.props} />}
           />
           <Redirect exact from="/" to="/home" />
           <Route exact path="/login" component={Login} />
@@ -38,6 +39,11 @@ class Routes extends Component {
           <Route exact path="/checkout" component={Checkout} />
           <Route path="/home" render={props => <Products {...this.props} />} />
           <Route path="/cart" render={props => <Cart {...this.props} />} />
+          <Route
+            exact
+            path="/orders"
+            render={props => <Orders {...this.props} />}
+          />
           {/* Displays our Login component as a fallback */}
           <Route component={Login} />
         </Switch>

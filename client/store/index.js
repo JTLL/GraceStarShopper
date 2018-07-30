@@ -7,8 +7,10 @@ import products from './products'
 import cart from './cart'
 import purchase from './purchase.js'
 import searchFilter from './searchFilter'
+import orders from './orders.js'
 
-const reducer = combineReducers({user, products, cart, purchase, searchFilter})
+const reducer = combineReducers({user, products, cart, purchase, orders, searchFilter})
+
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
 )
