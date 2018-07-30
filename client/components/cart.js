@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import Product from './product'
-import {fetchCart, removeFromCart} from '../store/cart'
+import {fetchCart, removeFromCart, invalidCartItems} from '../store/cart'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
@@ -9,6 +9,8 @@ class Cart extends Component {
     this.props.userId
       ? this.props.getCart(this.props.userId)
       : this.props.getCart(0)
+    const invalidItems = invalidCartItems(this.props.userId)
+    console.log("validation of cart", invalidItems)
   }
 
   componentDidUpdate(prevProps) {
@@ -20,7 +22,7 @@ class Cart extends Component {
     return (
       <div className="ui grid">
         <div className="sixteen column row">
-          <div className=" eight wide left floated column">
+          <div className="eight wide left floated column">
             <h2>Shopping Cart</h2>
           </div>
           <div className="eight wide right floated column">
