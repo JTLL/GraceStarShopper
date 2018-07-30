@@ -14,13 +14,9 @@ class productList extends Component {
   retrieveStripe() {}
 
   render() {
-    const termsArr = this.props.searchTerm
-    let searchTerms
-    if (termsArr.length) {
-      searchTerms = termsArr.split(' ')
-    } else {
-      searchTerms = ''
-    }
+    const terms = this.props.searchTerm
+    let searchTerms = ['']
+    if (terms.length) searchTerms = terms.split(' ')
     return (
       <div>
         <div className="ui grid">
@@ -49,15 +45,20 @@ class productList extends Component {
           {this.props.products.length ? (
             this.props.products
               .filter(product => {
-                if (
-                  product.name.indexOf(searchTerms[0]) !== -1 ||
-                  product.name.toLowerCase().indexOf(searchTerms[0]) !== -1 ||
-                  !searchTerms.length
-                ) {
-                  return true
-                } else {
-                  return false
+                let result = true
+                for (let i = 0; i < searchTerms.length; i++) {
+                  if (
+                    product.name.indexOf(searchTerms[i]) === -1 &&
+                    product.name.toLowerCase().indexOf(searchTerms[i]) === -1 &&
+                    !product.magnitude.toString().startsWith(searchTerms[i]) &&
+                    !Number(product.price)
+                      .toLocaleString()
+                      .startsWith(searchTerms[i])
+                  ) {
+                    result = false
+                  }
                 }
+                return result
               })
               .map(product => {
                 return (
