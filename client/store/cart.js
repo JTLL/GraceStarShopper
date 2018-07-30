@@ -70,14 +70,18 @@ export const fetchCart = (userId = 0) => async dispatch => {
       const res = await axios.get(`api/cart/${userId}`)
       for (let i = 0; i < res.data.stars.length; i++) {
         let star = await axios.get(`api/stars/${res.data.stars[i]}`)
-        cart.push(star.data)
+        if(!star.data.owned){
+          cart.push(star.data)
+        }
       }
     } else {
       if (localStorage.getItem('starCart')) {
         let starCart = localStorage.getItem('starCart').split(',')
         for (let i = 1; i < starCart.length; i++) {
           let star = await axios.get(`api/stars/${starCart[i]}`)
-          cart.push(star.data)
+          if(!star.data.owned){
+            cart.push(star.data)
+          }
         }
       }
     }
