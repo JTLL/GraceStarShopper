@@ -4,7 +4,6 @@ import {Link} from 'react-router-dom'
 
 class orderConfirmation extends Component {
   render() {
-    console.log(this.props.order)
     return (
       <div>
         <h2>Your order is complete!</h2>

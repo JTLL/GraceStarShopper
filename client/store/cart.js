@@ -59,6 +59,7 @@ export const fetchCart = (userId = 0) => async dispatch => {
   let cart = []
   if (userId > 0) {
     const res = await axios.get(`api/cart/${userId}`)
+    console.log('cart', res)
     for (let i = 0; i < res.data.stars.length; i++) {
       let star = await axios.get(`api/stars/${res.data.stars[i]}`)
       cart.push(star.data)
