@@ -52,7 +52,7 @@ class productList extends Component {
             </div>
           </div>
         </div>
-        <div className="ui link cards">
+        <div className="ui cards">
           {this.props.products.length ? (
             this.props.products
               .filter(product => {
