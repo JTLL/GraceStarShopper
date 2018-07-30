@@ -164,7 +164,7 @@ const mapStateToProps = state => ({
   ccTypeValid: state.purchase.ccTypeValid,
   ccNumberValid: state.purchase.ccNumberValid,
   cvcValid: state.purchase.cvcValid,
-  cart: state.cart.cart,
+  cart: state.cart.validItems,
   purchase: state.purchase.purchase,
   valid: state.purchase.validCartContents
 })

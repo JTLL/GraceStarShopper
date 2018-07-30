@@ -9,7 +9,7 @@ const CLEAN_CART = 'CLEAN_CART'
 const INVALID_ITEMS = 'INVALID_ITEMS'
 
 const initialState = {
-  cart: [],
+  validItems: [],
   invalidItems: []
 }
 
@@ -23,9 +23,9 @@ export const addStarToCart = star => ({
   star
 })
 
-const returnCart = cart => ({
+const returnCart = validItems => ({
   type: RETURN_CART,
-  cart
+  validItems
 })
 
 const emptyOutCart = () => ({
@@ -67,7 +67,7 @@ export const removeFromCart = (starId, userId = 0) => async dispatch => {
 }
 
 export const fetchCart = (userId = 0) => async dispatch => {
-  let cart = []
+  let validItems = []
   let invalidItems = []
   try {
     if (userId > 0) {
@@ -75,7 +75,7 @@ export const fetchCart = (userId = 0) => async dispatch => {
       for (let i = 0; i < res.data.stars.length; i++) {
         let star = await axios.get(`api/stars/${res.data.stars[i]}`)
         if (!star.data.owned) {
-          cart.push(star.data)
+          validItems.push(star.data)
         }
         else {
           invalidItems.push(star.data)
@@ -87,7 +87,7 @@ export const fetchCart = (userId = 0) => async dispatch => {
         for (let i = 1; i < starCart.length; i++) {
           let star = await axios.get(`api/stars/${starCart[i]}`)
           if (!star.data.owned) {
-            cart.push(star.data)
+            validItems.push(star.data)
           }
           else {
             invalidItems.push(star.data)
@@ -95,7 +95,7 @@ export const fetchCart = (userId = 0) => async dispatch => {
         }
       }
     }
-    dispatch(returnCart(cart))
+    dispatch(returnCart(validItems))
     dispatch(invalidateItems(invalidItems))
   } catch (error) {
     console.error(error)
@@ -118,21 +118,21 @@ export const clearCart = (userId = 0) => async dispatch => {
 export default function(state = initialState, action) {
   switch (action.type) {
     case ADD_STAR_TO_CART:
-      state.cart.forEach(star => {
+      state.validItems.forEach(star => {
         if (star.id === action.star.id) {
           return state
         }
       })
-      return {...state, cart: [...state.cart, action.star]}
+      return {...state, validItems: [...state.validItems, action.star]}
     case REMOVE_STAR_FROM_CART:
       return {
         ...state,
-        cart: state.cart.filter(star => star.id !== action.star.id)
+        validItems: state.validItems.filter(star => star.id !== action.star.id)
       }
     case RETURN_CART:
       return {
         ...state,
-        cart: action.cart
+        validItems: action.validItems
       }
     case EMPTY_OUT_CART:
       return initialState

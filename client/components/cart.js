@@ -29,9 +29,9 @@ class Cart extends Component {
             </Link>
           </div>
         </div>
-        {this.props.cart.cart.length > 0 ? (
+        {this.props.cart.length > 0 ? (
           <div className="ui cards">
-            {this.props.cart.cart.map(product => {
+            {this.props.cart.map(product => {
               return (
                 <Product
                   key={product.id}
@@ -43,12 +43,12 @@ class Cart extends Component {
                 />
               )
             })}
-            {this.props.cart.invalidItems.length ? (
+            {this.props.invalidItems.length ? (
               <React.Fragment>
                 <div>
                   The following items are no longer available and have been removed from your cart:
                   <ul>
-                    {this.props.cart.invalidItems.map(star => <li key={star.id}>{" " + star.name}</li>)}
+                    {this.props.invalidItems.map(star => <li key={star.id}>{" " + star.name}</li>)}
                   </ul>
                 </div>
                 
@@ -66,7 +66,8 @@ class Cart extends Component {
 }
 
 const mapStateToProps = state => ({
-  cart: state.cart
+  cart: state.cart.validItems,
+  invalidItems: state.cart.invalidItems
 })
 
 const mapDispatchToProps = dispatch => ({
