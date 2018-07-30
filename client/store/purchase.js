@@ -1,6 +1,5 @@
 import axios from 'axios'
 import {clearCart} from './cart'
-import {runInNewContext} from 'vm'
 
 const initialState = {
   order: {},
@@ -100,9 +99,11 @@ export const completeOrder = (
       const whatever = await validateCart(stars)
       console.log('await part', !whatever)
       if (!whatever) {
+        console.log("inside?")
         dispatch(validCartCheck())
         return
       }
+      console.log('passed validity check')
       const {data} = await axios.post('/api/stripe/charge', {
         amount,
         cardType
@@ -130,13 +131,15 @@ const setOwners = (userId, stars) => {
 }
 
 const validateCart = stars => {
-  stars.forEach(async star => {
-    const res = await axios.get(`/api/stars/${star}`)
-    if (res.owned) {
-      return false
+  let validity = true
+  stars.forEach(async starId => {
+    const res = await axios.get(`/api/stars/${starId}`)
+    console.log("purchase validate cart",res.data.owned)
+    if (res.data.owned) {
+      validity = false
     }
   })
-  return true
+  return validity
 }
 
 export default function(state = initialState, action) {
