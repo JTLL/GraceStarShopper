@@ -115,43 +115,7 @@ export const clearCart = (userId = 0) => async dispatch => {
   }
 }
 
-<<<<<<< HEAD
 export default function(state = initialState, action) {
-=======
-const validateCart = (userId = 0, itemArray) => async dispatch => {
-  console.log('where am I?')
-  let userCart
-  try {
-    if (userId) {
-      let res = await axios.get(`/api/cart`)
-      userCart = res.data.stars
-    } else {
-      userCart = localStorage.getItem('starCart').split(',')
-    }
-    console.log('usercart', userCart)
-    userCart.forEach(async starId => {
-      let res = await axios.get(`/api/stars/${starId}`)
-      let star = res.data
-      console.log('star', star)
-      if (star.owned) {
-        itemArray.push(star.name)
-      }
-    })
-    dispatch(cleanCart(itemArray))
-  } catch (error) {
-    console.error(error)
-  }
-}
-
-export const invalidCartItems = async (userId = 0) => {
-  let invalidItems = []
-  const test = await validateCart(userId, invalidItems)
-  console.log('invalidItems', invalidItems)
-  return invalidItems
-}
-
-export default function(state = defaultCart, action) {
->>>>>>> master
   switch (action.type) {
     case ADD_STAR_TO_CART:
       state.cart.forEach(star => {

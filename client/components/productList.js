@@ -104,14 +104,8 @@ class productList extends Component {
 
 const mapStateToProps = state => ({
   products: state.products,
-<<<<<<< HEAD
   cart: state.cart.cart,
   searchTerm: state.searchFilter.searchTerm
-=======
-  cart: state.cart,
-  searchTerm: state.searchFilter.searchTerm,
-  priceMin: state.searchFilter.priceMin
->>>>>>> master
 })
 
 const mapDispatchToProps = dispatch => ({
