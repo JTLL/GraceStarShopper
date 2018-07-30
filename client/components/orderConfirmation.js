@@ -6,6 +6,7 @@ class orderConfirmation extends Component {
   render() {
     return (
       <div>
+        {console.log('confirmation page', this.props)}
         {this.props.order.id ? (
           <div>
             <h2>Your order is complete!</h2>
@@ -20,11 +21,14 @@ class orderConfirmation extends Component {
           </div>
         ) : (
           <div>
-            <h2>No recent order.</h2>
-            <p>
-              Please refer to your order history page if you recently made a
-              purchase.
-            </p>
+            {this.props.userId ? (
+              <h3>
+                Please refer to your order history page if you recently made a
+                purchase.
+              </h3>
+            ) : (
+              <h3>Expired</h3>
+            )}
           </div>
         )}
       </div>
