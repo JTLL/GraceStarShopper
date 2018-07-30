@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('../server/db')
-const {User, Star, Cart} = require('../server/db/models')
+const { User, Star, Cart } = require('../server/db/models')
 
 const stars = [
   {
@@ -89,7 +89,7 @@ const carts = [
 ]
 
 async function seed() {
-  await db.sync({force: true})
+  await db.sync({ force: true })
   console.log('db synced!')
   // Whoa! Because we `await` the promise that db.sync returns, the next line will not be
   // executed until that promise resolves!
