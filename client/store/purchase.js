@@ -1,6 +1,6 @@
 import axios from 'axios'
 import {clearCart} from './cart'
-import { runInNewContext } from 'vm';
+import {runInNewContext} from 'vm'
 
 const initialState = {
   order: {},
@@ -97,7 +97,9 @@ export const completeOrder = (
       trigger = false
     }
     if (trigger) {
-      if(!(await validateCart(stars))){
+      const whatever = await validateCart(stars)
+      console.log('await part', !whatever)
+      if (!whatever) {
         dispatch(validCartCheck())
         return
       }
@@ -130,7 +132,7 @@ const setOwners = (userId, stars) => {
 const validateCart = stars => {
   stars.forEach(async star => {
     const res = await axios.get(`/api/stars/${star}`)
-    if(res.owned){
+    if (res.owned) {
       return false
     }
   })
