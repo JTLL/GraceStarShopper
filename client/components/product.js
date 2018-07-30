@@ -8,7 +8,7 @@ const Product = props => {
   return (
     <div className="ui card">
       <div className="image">
-        <img src={product.image} />
+        <img src={product.image} style={{height: "290px", width: "290px"}}/>
       </div>
       <div className="content">
         <p className="header">{product.name}</p>
