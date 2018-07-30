@@ -99,7 +99,7 @@ export const completeOrder = (
       const whatever = await validateCart(stars)
       console.log('await part', !whatever)
       if (!whatever) {
-        console.log("inside?")
+        console.log('inside?')
         dispatch(validCartCheck())
         return
       }
@@ -108,12 +108,15 @@ export const completeOrder = (
         amount,
         cardType
       })
-      const order = await axios.post('/api/order', {
+
+      console.log('data', data)
+      const order = await axios.post('/api/orders', {
         amount,
         stripeId: data.id,
         userId,
         stars
       })
+
       dispatch(purchase(order.data))
       dispatch(clearCart(userId))
       setOwners(userId, stars)
@@ -134,7 +137,7 @@ const validateCart = stars => {
   let validity = true
   stars.forEach(async starId => {
     const res = await axios.get(`/api/stars/${starId}`)
-    console.log("purchase validate cart",res.data.owned)
+    console.log('purchase validate cart', res.data.owned)
     if (res.data.owned) {
       validity = false
     }
