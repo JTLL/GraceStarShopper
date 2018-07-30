@@ -4,18 +4,29 @@ import {Link} from 'react-router-dom'
 
 class orderConfirmation extends Component {
   render() {
-    console.log(this.props.order)
     return (
       <div>
-        <h2>Your order is complete!</h2>
-        <p>
-          Your purchase amount is: ${this.props.order.amount.toLocaleString()}
-          , which is still in billions.
-        </p>
-        <p>Your order ID is: {this.props.order.id}</p>
-        <Link to="/" className="ui button">
-          Return Home
-        </Link>
+        {this.props.order.id ? (
+          <div>
+            <h2>Your order is complete!</h2>
+            <p>
+              Your purchase amount is: ${this.props.order.amount.toLocaleString()}
+              , which is still in billions.
+            </p>
+            <p>Your order ID is: {this.props.order.id}</p>
+            <Link to="/" className="ui button">
+              Return Home
+            </Link>
+          </div>
+        ) : (
+          <div>
+            <h2>No recent order.</h2>
+            <p>
+              Please refer to your order history page if you recently made a
+              purchase.
+            </p>
+          </div>
+        )}
       </div>
     )
   }
