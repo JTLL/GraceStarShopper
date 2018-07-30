@@ -27,7 +27,7 @@ User.hasMany(Order)
 
 module.exports = {
   User,
-  Star, 
+  Star,
   Cart,
   Order
 }
