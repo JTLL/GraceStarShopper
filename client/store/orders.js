@@ -13,7 +13,7 @@ const returnOrders = orders => ({
 export const fetchOrders = (userId = 0) => async dispatch => {
   let orders = []
   // if (userId > 0) {
-  const allOrders = await axios.get(`api/orders/${userId}`)
+  const allOrders = await axios.get(`api/orders/user`)
   for (let i = 0; i < allOrders.data.length; i++) {
     let order = allOrders.data[i]
     let starsInOrder = allOrders.data[i].stars
