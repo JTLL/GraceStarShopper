@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Product = props => {
-  const {product, handleSubmit, handleRemove, location, userId, cart} = props
+  const {product, handleSubmit, handleGuestSubmit, handleRemove, location, userId, cart} = props
   const cartReducer = (accumulator, currentValue) => {
     return currentValue.id === product.id || accumulator
   }
@@ -30,14 +30,7 @@ const Product = props => {
           <div
             className="ui vertical animated button"
             tabIndex="0"
-            onClick={() => {
-              userId
-                ? handleSubmit(product.id, userId)
-                : localStorage.setItem('starCart', [
-                    localStorage.getItem('starCart'),
-                    product.id
-                  ])
-            }}
+            onClick={() => handleSubmit(product.id, userId)}
           >
             <div className="hidden content">Add</div>
             <div className="visible content">
