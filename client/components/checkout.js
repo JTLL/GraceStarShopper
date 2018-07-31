@@ -44,11 +44,18 @@ class Checkout extends Component {
               className="ui form"
               onSubmit={event => {
                 event.preventDefault()
-                this.props.completeOrder(
-                  total,
+                let currentState = [
                   this.props.ccType,
                   this.props.ccNumber,
                   this.props.cvc,
+                ]
+                this.props.clearErrorState()
+                this.props.ccTypeChange(currentState[0])
+                this.props.ccNumberChange(currentState[1])
+                this.props.cvcChange(currentState[2])
+                this.props.completeOrder(
+                  total,
+                  ...currentState,
                   this.props.userId,
                   this.simplifyCart()
                 )
