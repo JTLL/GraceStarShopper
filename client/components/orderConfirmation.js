@@ -15,8 +15,8 @@ class orderConfirmation extends Component {
               , which is still in billions.
             </p>
             <p>Your order ID is: {this.props.order.id}</p>
-            <Link to="/" className="ui button">
-              Return Home
+            <Link to="/products" className="ui button">
+              Browse More Products
             </Link>
           </div>
         ) : (
