@@ -4,6 +4,7 @@ import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {
   Login,
+  Landing,
   Signup,
   Products,
   Cart,
@@ -34,11 +35,14 @@ class Routes extends Component {
             path="/order-confirmation"
             render={props => <OrderConfirmation {...this.props} />}
           />
-          <Redirect exact from="/" to="/home" />
+          <Route exact path="/" component={Landing} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/checkout" component={Checkout} />
-          <Route path="/home" render={props => <Products {...this.props} />} />
+          <Route
+            path="/products"
+            render={props => <Products {...this.props} />}
+          />
           <Route path="/cart" render={props => <Cart {...this.props} />} />
           <Route
             exact
