@@ -110,7 +110,6 @@ class productList extends Component {
               all good!
             </h3>
           )}
-          {/* <button onClick={}>Stripe Stuff</button> */}
         </div>
       </div>
     )

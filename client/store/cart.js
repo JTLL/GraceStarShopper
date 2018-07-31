@@ -1,5 +1,4 @@
 import axios from 'axios'
-// import history from '../history'
 
 const REMOVE_STAR_FROM_CART = 'REMOVE_STAR_FROM_CART'
 const ADD_STAR_TO_CART = 'ADD_STAR_TO_CART'
@@ -57,7 +56,7 @@ export const addToCart = (starId, userId) => async dispatch => {
 export const removeFromCart = (starId, userId = 0) => async dispatch => {
   try {
     const res = await axios.get(`api/stars/${starId}`)
-    if (userId > 0) {
+    if (userId) {
       await axios.put(`api/cart/removeOne`, res.data)
     }
     dispatch(removeStarFromCart(res.data))
@@ -70,14 +69,13 @@ export const fetchCart = (userId = 0) => async dispatch => {
   let validItems = []
   let invalidItems = []
   try {
-    if (userId > 0) {
+    if (userId) {
       const res = await axios.get(`api/cart`)
       for (let i = 0; i < res.data.stars.length; i++) {
         let star = await axios.get(`api/stars/${res.data.stars[i]}`)
         if (!star.data.owned) {
           validItems.push(star.data)
-        }
-        else {
+        } else {
           invalidItems.push(star.data)
         }
       }
@@ -88,8 +86,7 @@ export const fetchCart = (userId = 0) => async dispatch => {
           let star = await axios.get(`api/stars/${starCart[i]}`)
           if (!star.data.owned) {
             validItems.push(star.data)
-          }
-          else {
+          } else {
             invalidItems.push(star.data)
           }
         }
