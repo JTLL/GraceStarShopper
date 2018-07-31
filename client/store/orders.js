@@ -1,5 +1,4 @@
 import axios from 'axios'
-// import history from '../history'
 
 const RETURN_ORDERS = 'RETURN_ORDERS'
 
@@ -10,9 +9,8 @@ const returnOrders = orders => ({
   orders
 })
 
-export const fetchOrders = (userId = 0) => async dispatch => {
+export const fetchOrders = () => async dispatch => {
   let orders = []
-  // if (userId > 0) {
   const allOrders = await axios.get(`api/orders/user`)
   for (let i = 0; i < allOrders.data.length; i++) {
     let order = allOrders.data[i]
@@ -24,15 +22,6 @@ export const fetchOrders = (userId = 0) => async dispatch => {
     }
     order.starsData = stars
     orders.push(order)
-    //   }
-    // } else {
-    //   if (localStorage.getItem('starCart')) {
-    //     let starCart = localStorage.getItem('starCart').split(',')
-    //     for (let i = 1; i < starCart.length; i++) {
-    //       let star = await axios.get(`api/stars/${starCart[i]}`)
-    //       cart.push(star.data)
-    //     }
-    //   }
   }
   dispatch(returnOrders(orders))
 }

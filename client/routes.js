@@ -15,41 +15,31 @@ import {
   MarioParty
 } from './components'
 import {me} from './store'
-import productList from './components/productList'
 
-/**
- * COMPONENT
- */
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData()
   }
-
   render() {
-    const {isLoggedIn, isAdmin} = this.props
     return (
       <div className="ui container">
         <Switch>
-          {/* Routes placed here are available to all visitors */}
-          <Route
-            exact
-            path="/order-confirmation"
-            render={props => <OrderConfirmation {...this.props} />}
-          />
-          <Redirect exact from="/" exact to="/home" />
+          <Redirect exact from="/" to="/home" />
           <Route exact path="/home" component={Landing} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/checkout" component={Checkout} />
-          <Route
-            path="/products"
-            render={props => <Products {...this.props} />}
-          />
-          <Route path="/cart" render={props => <Cart {...this.props} />} />
+          <Route path="/products" render={() => <Products {...this.props} />} />
+          <Route path="/cart" render={() => <Cart {...this.props} />} />
           <Route
             exact
             path="/orders"
-            render={props => <Orders {...this.props} />}
+            render={() => <Orders {...this.props} />}
+          />
+          <Route
+            exact
+            path="/order-confirmation"
+            render={() => <OrderConfirmation {...this.props} />}
           />
           <Route exact path="/admin" component={Admin} />
           <Route exact path="/mario-party" component={MarioParty} />
@@ -60,9 +50,6 @@ class Routes extends Component {
   }
 }
 
-/**
- * CONTAINER
- */
 const mapState = state => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
