@@ -5,14 +5,15 @@ import PropTypes from 'prop-types'
 import {
   Login,
   Signup,
-  UserHome,
   Products,
   Cart,
   Checkout,
   OrderConfirmation,
-  Orders
+  Orders,
+  Admin
 } from './components'
 import {me} from './store'
+import productList from './components/productList'
 
 /**
  * COMPONENT
@@ -23,7 +24,7 @@ class Routes extends Component {
   }
 
   render() {
-    const {isLoggedIn} = this.props
+    const {isLoggedIn, isAdmin} = this.props
     return (
       <div className="ui container">
         <Switch>
@@ -44,7 +45,7 @@ class Routes extends Component {
             path="/orders"
             render={props => <Orders {...this.props} />}
           />
-          {/* Displays our Login component as a fallback */}
+          <Route exact path="/admin" component={Admin} />
           <Route component={Login} />
         </Switch>
       </div>
@@ -61,7 +62,8 @@ const mapState = state => {
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
     isLoggedIn: !!state.user.id,
     userId: state.user.id,
-    cart: state.cart.validItems
+    cart: state.cart.validItems,
+    isAdmin: !!state.user.admin
   }
 }
 

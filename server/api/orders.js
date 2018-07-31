@@ -13,8 +13,10 @@ router.post('/', async (req, res, next) => {
 
 router.get('/', async (req, res, next) => {
   try {
-    const orders = await Order.findAll()
-    res.json(orders)
+    if (req.user.admin) {
+      const orders = await Order.findAll()
+      res.json(orders)
+    }
   } catch (error) {
     next(error)
   }
