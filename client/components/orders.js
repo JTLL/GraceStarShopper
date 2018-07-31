@@ -54,7 +54,6 @@ class Orders extends Component {
         ) : (
           <div>No Previous Orders</div>
         )}
-        {console.log('these props', this.props.orders[0])}
       </div>
     )
   }

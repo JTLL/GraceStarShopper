@@ -24,7 +24,6 @@ class Product extends Component {
     const cartReducer = (accumulator, currentValue) => {
       return currentValue.id === product.id || accumulator
     }
-    console.log('cart from product page', this.props.cart)
     return (
       <div className="ui card">
         <div className="image">

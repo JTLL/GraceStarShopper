@@ -13,6 +13,13 @@ const stars = [
     price: 5000
   },
   {
+    name: 'Mario Star',
+    image:
+      'http://www.sitsam.com/wordpress/wp-content/uploads/2010/06/Mario-Star-250x250.jpg',
+    magnitude: 10000,
+    price: 999999
+  },
+  {
     name: 'Sirius',
     image:
       'http://en.es-static.us/upl/2017/02/sirius-2-19-2018-Jim-Livingston-Custer-SD-lg-e1519156718851.jpg',
