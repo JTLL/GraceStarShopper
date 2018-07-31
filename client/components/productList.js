@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import Product from './product'
 import {fetchProducts} from '../store/products'
 import {addToCart, fetchCart} from '../store/cart'
-import {searchUpdate} from '../store/searchFilter'
+import {searchUpdate, priceMinUpdate} from '../store/searchFilter'
 import {connect} from 'react-redux'
 
 class productList extends Component {
@@ -10,8 +10,6 @@ class productList extends Component {
     this.props.getProducts()
     this.props.getCart(this.props.userId)
   }
-
-  retrieveStripe() {}
 
   render() {
     const terms = this.props.searchTerm
@@ -24,7 +22,20 @@ class productList extends Component {
             <div className="eight wide left floated column">
               <h2>Available Stars</h2>
             </div>
-            <div className="eigt wide left floated column">
+            <div className="four wide left floated column">
+              <select
+                className="ui dropdown"
+                onChange={event =>
+                  this.props.priceMinUpdate(event.target.value)
+                }
+              >
+                <option value="0">Filter by Price</option>
+                <option value="1000">Less Than $1,000</option>
+                <option value="10000">Less Than $10,000</option>
+                <option value="100000">Less Than $100,000</option>
+              </select>
+            </div>
+            <div className="four wide left floated column">
               <div className="ui search">
                 <div className="ui icon input">
                   <input
@@ -41,7 +52,7 @@ class productList extends Component {
             </div>
           </div>
         </div>
-        <div className="ui link cards">
+        <div className="ui cards">
           {this.props.products.length ? (
             this.props.products
               .filter(product => {
@@ -50,13 +61,20 @@ class productList extends Component {
                   if (
                     product.name.indexOf(searchTerms[i]) === -1 &&
                     product.name.toLowerCase().indexOf(searchTerms[i]) === -1 &&
-                    !product.magnitude.toString().startsWith(searchTerms[i]) &&
+                    product.magnitude.toString().indexOf(searchTerms[i]) ===
+                      -1 &&
                     !Number(product.price)
                       .toLocaleString()
                       .startsWith(searchTerms[i])
                   ) {
                     result = false
                   }
+                }
+                if (
+                  Number(product.price) > Number(this.props.priceMin) &&
+                  Number(this.props.priceMin) !== 0
+                ) {
+                  result = false
                 }
                 return result
               })
@@ -87,14 +105,16 @@ class productList extends Component {
 
 const mapStateToProps = state => ({
   products: state.products,
-  cart: state.cart,
-  searchTerm: state.searchFilter.searchTerm
+  cart: state.cart.validItems,
+  searchTerm: state.searchFilter.searchTerm,
+  priceMin: state.searchFilter.priceMin
 })
 
 const mapDispatchToProps = dispatch => ({
   getProducts: () => dispatch(fetchProducts()),
   getCart: id => dispatch(fetchCart(id)),
   searchUpdate: term => dispatch(searchUpdate(term)),
+  priceMinUpdate: price => dispatch(priceMinUpdate(price)),
   handleSubmit: async (starId, userId) => {
     await dispatch(addToCart(starId, userId))
   }

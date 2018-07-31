@@ -22,22 +22,26 @@ class Orders extends Component {
           <div>
             {this.props.orders.map(order => {
               return (
-                <div key={order.id}>
-                  <div className="ui card">
+                <div
+                  className="ui card grid"
+                  key={order.id}
+                  style={{padding: '10px 0px'}}
+                >
+                  <div className="ui divided items">
                     <h3>Order ID: {order.id}</h3>
                     <div>Status: Complete</div>
                     <div>Total: ${order.amount.toLocaleString()} billion</div>
-                    <p />
+                    <br />
                     <div>Purchased Stars:</div>
                     {order.starsData.map(star => {
                       return (
-                        <div key={star.id}>
-                          <div>
-                            {star.name}: ${Number(star.price).toLocaleString()}{' '}
-                            billion
-                          </div>
+                        <div className="item" key={star.id}>
                           <div className="ui tiny image">
                             <img src={star.image} />
+                          </div>
+                          <div className="middle aligned content">
+                            {star.name}: ${Number(star.price).toLocaleString()}{' '}
+                            billion
                           </div>
                         </div>
                       )

@@ -20,11 +20,11 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.get('/:userId', async (req, res, next) => {
+router.get('/user', async (req, res, next) => {
   try {
     const ordersById = await Order.findAll({
       where: {
-        userId: req.params.userId
+        userId: req.user.id
       },
       order: [['id', 'DESC']]
     })

@@ -96,14 +96,11 @@ export const completeOrder = (
       trigger = false
     }
     if (trigger) {
-      const whatever = await validateCart(stars)
-      console.log('await part', !whatever)
-      if (!whatever) {
-        console.log('inside?')
+      const valid = await validateCart(stars)
+      if (!valid) {
         dispatch(validCartCheck())
         return
       }
-      console.log('passed validity check')
       const {data} = await axios.post('/api/stripe/charge', {
         amount,
         cardType
@@ -134,15 +131,12 @@ const setOwners = (userId, stars) => {
 }
 
 const validateCart = stars => {
-  let validity = true
-  stars.forEach(async starId => {
-    const res = await axios.get(`/api/stars/${starId}`)
-    console.log('purchase validate cart', res.data.owned)
-    if (res.data.owned) {
-      validity = false
-    }
-  })
-  return validity
+  return Promise.all(stars.map(starId => axios.get(`/api/stars/${starId}`)))
+    .then(cart => cart.reduce(
+      (accumulator, currentStar) => {
+        return accumulator && !currentStar.data.owned
+      }, true
+    ))
 }
 
 export default function(state = initialState, action) {

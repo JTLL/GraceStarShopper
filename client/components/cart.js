@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import Product from './product'
-import {fetchCart, removeFromCart, invalidCartItems} from '../store/cart'
+import {fetchCart, removeFromCart} from '../store/cart'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
@@ -9,8 +9,6 @@ class Cart extends Component {
     this.props.userId
       ? this.props.getCart(this.props.userId)
       : this.props.getCart(0)
-    const invalidItems = invalidCartItems(this.props.userId)
-    console.log("validation of cart", invalidItems)
   }
 
   componentDidUpdate(prevProps) {
@@ -45,6 +43,19 @@ class Cart extends Component {
                 />
               )
             })}
+            {this.props.invalidItems.length ? (
+              <React.Fragment>
+                <div>
+                  The following items are no longer available and have been removed from your cart:
+                  <ul>
+                    {this.props.invalidItems.map(star => <li key={star.id}>{" " + star.name}</li>)}
+                  </ul>
+                </div>
+                
+              </React.Fragment>
+            ) : (
+              <div />
+            )}
           </div>
         ) : (
           <h3 className="red">Your cart is empty.</h3>
@@ -55,7 +66,8 @@ class Cart extends Component {
 }
 
 const mapStateToProps = state => ({
-  cart: state.cart
+  cart: state.cart.validItems,
+  invalidItems: state.cart.invalidItems
 })
 
 const mapDispatchToProps = dispatch => ({
