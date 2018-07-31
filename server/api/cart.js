@@ -3,6 +3,7 @@ const {Cart} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
+  console.log(req.user)
   try {
     const cart = await Cart.findOne({
       where: {

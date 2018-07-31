@@ -8,8 +8,17 @@ import cart from './cart'
 import purchase from './purchase.js'
 import searchFilter from './searchFilter'
 import orders from './orders.js'
+import admin from './admin.js'
 
-const reducer = combineReducers({user, products, cart, purchase, orders, searchFilter})
+const reducer = combineReducers({
+  user,
+  products,
+  cart,
+  purchase,
+  orders,
+  searchFilter,
+  admin
+})
 
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))

@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
-const Navbar = ({handleClick, isLoggedIn, userName}) => (
+const Navbar = ({handleClick, isLoggedIn, userName, isAdmin}) => (
   <div className="ui secondary  menu" style={{backgroundColor: '#C0C0C0'}}>
     <Link className="item" to="/">
       <h1 className="ui header">Grace Star Shopper</h1>
@@ -13,6 +13,13 @@ const Navbar = ({handleClick, isLoggedIn, userName}) => (
       {isLoggedIn ? (
         <div className="item">
           <p className="item">Logged in as: {userName}</p>
+          {isAdmin ? (
+            <Link className="item" to="/admin">
+              Admin Panel
+            </Link>
+          ) : (
+            <div />
+          )}
           <Link className="item" to="/orders">
             Orders
           </Link>
@@ -48,7 +55,8 @@ const Navbar = ({handleClick, isLoggedIn, userName}) => (
  */
 const mapState = state => ({
   isLoggedIn: !!state.user.id,
-  userName: state.user.name
+  userName: state.user.name,
+  isAdmin: state.user.admin
 })
 
 const mapDispatch = dispatch => {
