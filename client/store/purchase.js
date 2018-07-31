@@ -95,12 +95,12 @@ export const completeOrder = (
       dispatch(cvcCheck())
       trigger = false
     }
+    const valid = await validateCart(stars)
+    if (!valid) {
+      dispatch(validCartCheck())
+      trigger = false
+    }
     if (trigger) {
-      const valid = await validateCart(stars)
-      if (!valid) {
-        dispatch(validCartCheck())
-        return
-      }
       const {data} = await axios.post('/api/stripe/charge', {
         amount,
         cardType
