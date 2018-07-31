@@ -73,8 +73,9 @@ class productList extends Component {
                 if (
                   Number(product.price) > Number(this.props.priceMin) &&
                   Number(this.props.priceMin) !== 0
-                )
+                ) {
                   result = false
+                }
                 return result
               })
               .map(product => {
@@ -105,7 +106,8 @@ class productList extends Component {
 const mapStateToProps = state => ({
   products: state.products,
   cart: state.cart.validItems,
-  searchTerm: state.searchFilter.searchTerm
+  searchTerm: state.searchFilter.searchTerm,
+  priceMin: state.searchFilter.priceMin
 })
 
 const mapDispatchToProps = dispatch => ({
