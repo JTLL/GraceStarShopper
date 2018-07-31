@@ -11,7 +11,8 @@ import {
   Checkout,
   OrderConfirmation,
   Orders,
-  Admin
+  Admin,
+  MarioParty
 } from './components'
 import {me} from './store'
 import productList from './components/productList'
@@ -51,6 +52,7 @@ class Routes extends Component {
             render={props => <Orders {...this.props} />}
           />
           <Route exact path="/admin" component={Admin} />
+          <Route exact path="/mario-party" component={MarioParty} />
           <Route component={Login} />
         </Switch>
       </div>

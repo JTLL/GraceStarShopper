@@ -105,15 +105,12 @@ export const completeOrder = (
         amount,
         cardType
       })
-
-      console.log('data', data)
       const order = await axios.post('/api/orders', {
         amount,
         stripeId: data.id,
         userId,
         stars
       })
-
       dispatch(purchase(order.data))
       dispatch(clearCart(userId))
       setOwners(userId, stars)
@@ -131,12 +128,13 @@ const setOwners = (userId, stars) => {
 }
 
 const validateCart = stars => {
-  return Promise.all(stars.map(starId => axios.get(`/api/stars/${starId}`)))
-    .then(cart => cart.reduce(
-      (accumulator, currentStar) => {
-        return accumulator && !currentStar.data.owned
-      }, true
-    ))
+  return Promise.all(
+    stars.map(starId => axios.get(`/api/stars/${starId}`))
+  ).then(cart =>
+    cart.reduce((accumulator, currentStar) => {
+      return accumulator && !currentStar.data.owned
+    }, true)
+  )
 }
 
 export default function(state = initialState, action) {

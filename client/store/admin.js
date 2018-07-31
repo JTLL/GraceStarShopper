@@ -12,7 +12,6 @@ const mountOrders = orders => ({
 })
 
 export const fetchOrders = () => async dispatch => {
-  console.log('fetching orders')
   try {
     const {data} = await axios.get('/api/orders')
     dispatch(mountOrders(data))

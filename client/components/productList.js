@@ -79,16 +79,30 @@ class productList extends Component {
                 return result
               })
               .map(product => {
-                return (
-                  <Product
-                    key={product.id}
-                    product={product}
-                    location={this.props.location}
-                    handleSubmit={this.props.handleSubmit}
-                    userId={this.props.userId}
-                    cart={this.props.cart}
-                  />
-                )
+                if (product.name === 'Mario Star') {
+                  return (
+                    <div className="hide" key={product.id}>
+                      <Product
+                        product={product}
+                        location={this.props.location}
+                        handleSubmit={this.props.handleSubmit}
+                        userId={this.props.userId}
+                        cart={this.props.cart}
+                      />
+                    </div>
+                  )
+                } else {
+                  return (
+                    <Product
+                      key={product.id}
+                      product={product}
+                      location={this.props.location}
+                      handleSubmit={this.props.handleSubmit}
+                      userId={this.props.userId}
+                      cart={this.props.cart}
+                    />
+                  )
+                }
               })
           ) : (
             <h3>

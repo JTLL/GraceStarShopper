@@ -6,7 +6,6 @@ class orderConfirmation extends Component {
   render() {
     return (
       <div>
-        {console.log('confirmation page', this.props)}
         {this.props.order.id ? (
           <div>
             <h2>Your order is complete!</h2>
