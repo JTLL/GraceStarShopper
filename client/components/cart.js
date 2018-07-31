@@ -22,6 +22,22 @@ class Cart extends Component {
         <div className="sixteen column row">
           <div className="eight wide left floated column">
             <h2>Shopping Cart</h2>
+            {this.props.invalidItems.length ? (
+              <p>
+                The following items are no longer available and have been
+                removed from your cart:
+                {this.props.invalidItems.map((star, index) => {
+                  let str = ' ' + star.name
+                  if (index + 1 === this.props.invalidItems.length) {
+                    return str + '.'
+                  } else {
+                    return str + ','
+                  }
+                })}
+              </p>
+            ) : (
+              <div />
+            )}
           </div>
           <div className="eight wide right floated column">
             <Link className="ui button right floated" to="/checkout">
@@ -43,19 +59,6 @@ class Cart extends Component {
                 />
               )
             })}
-            {this.props.invalidItems.length ? (
-              <React.Fragment>
-                <div>
-                  The following items are no longer available and have been removed from your cart:
-                  <ul>
-                    {this.props.invalidItems.map(star => <li key={star.id}>{" " + star.name}</li>)}
-                  </ul>
-                </div>
-                
-              </React.Fragment>
-            ) : (
-              <div />
-            )}
           </div>
         ) : (
           <h3 className="red">Your cart is empty.</h3>
